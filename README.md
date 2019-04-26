@@ -1,0 +1,1 @@
+# app_for_rightech_IoT_cloud

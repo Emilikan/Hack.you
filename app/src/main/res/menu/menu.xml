@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_notification"
+        app:showAsAction="always"
+        android:icon="@drawable/notification"
+        android:title="Метровагонмаш"/>
+
+    <item
+        android:id="@+id/action_ai"
+        app:showAsAction="always"
+        android:icon="@drawable/artificial_intelligence"
+        android:title="Метровагонмаш"/>
+</menu>

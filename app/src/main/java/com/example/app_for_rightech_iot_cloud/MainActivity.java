@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        //toolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Метровагонмаш");
 
@@ -53,4 +54,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }

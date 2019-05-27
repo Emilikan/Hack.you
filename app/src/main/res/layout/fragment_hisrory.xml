@@ -5,7 +5,8 @@
     android:layout_width="375dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Hisrory">
+    android:id="@+id/container"
+    tools:context=".History">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,12 +17,46 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lastDay"
+                    android:layout_width="73dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Последний день"
+                    android:textColor="#0400ff"
+                    android:textSize="15sp" />
+
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="179dp"
+                    android:layout_height="200dp"
+                    android:timePickerMode="spinner" />
+
+                <TextView
+                    android:id="@+id/now"
+                    android:gravity="center"
+                    android:layout_width="90dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Сейчас"
+                    android:textColor="#0400ff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/textView11"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+
                 android:text="Параметры" />
 
             <android.support.v7.widget.CardView
@@ -101,7 +136,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/notification"
+                            android:src="@drawable/artificial_intelligence"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
                             app:layout_constraintStart_toStartOf="parent"

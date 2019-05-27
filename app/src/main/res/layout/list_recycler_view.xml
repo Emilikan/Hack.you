@@ -17,23 +17,25 @@
 
         <ImageView
             android:id="@+id/image"
-            android:src="@drawable/artificial_intelligence"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/artificial_intelligence" />
 
         <TextView
             android:id="@+id/indicator"
-            android:layout_width="225dp"
-            android:layout_height="50dp"
+            android:layout_width="210dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="42.2 C"
-            android:textSize="30sp" />
+            android:textSize="28sp" />
 
         <ImageView
             android:id="@+id/warning"
-            android:src="@drawable/artificial_intelligence"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_marginLeft="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/artificial_intelligence" />
     </LinearLayout>
 
     <TextView

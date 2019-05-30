@@ -28,7 +28,8 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="42.2 C"
-            android:textSize="28sp" />
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/warning"
@@ -48,7 +49,7 @@
     <TextView
         android:id="@+id/date_and_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:gravity="right"
         android:text="(14.05.2019)12:34:03" />
 

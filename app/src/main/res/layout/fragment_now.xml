@@ -18,21 +18,25 @@
 
             <TextView
                 android:id="@+id/textView11"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="Параметры" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="70dp"
+                android:text="Параметры"
+                android:textStyle="bold" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="75dp">
+                android:layout_width="345dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="7dp">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@drawable/frame"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame">
 
                     <TextView
                         android:id="@+id/text_view_date"
@@ -83,26 +87,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/temperature"
                             android:layout_marginLeft="5dp"
+                            android:src="@drawable/temperature"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
                             app:layout_constraintStart_toStartOf="parent"
@@ -137,21 +141,20 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView3"
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView1"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/rn_indicator"
                             android:layout_marginLeft="5dp"
+                            android:src="@drawable/rn_indicator"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_rN"
                             app:layout_constraintStart_toStartOf="parent"
@@ -185,13 +188,12 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView1"
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_SOZ"
@@ -224,25 +226,25 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView2"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/density"
                             android:layout_marginLeft="5dp"
+                            android:src="@drawable/density"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_density"
                             app:layout_constraintStart_toStartOf="parent"
@@ -275,14 +277,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView3"
@@ -297,7 +298,7 @@
 
                         <TextView
                             android:id="@+id/textView20"
-                            android:layout_width="115dp"
+                            android:layout_width="match_parent"
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Уровень СОЖ"
@@ -326,29 +327,33 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Насос" />
+                android:text="Насос"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView4"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/pump_on"
                             android:layout_marginLeft="5dp"
+                            android:src="@drawable/pump_on"
                             app:layout_constraintBottom_toTopOf="@+id/textView21"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_pump_work"
                             app:layout_constraintStart_toStartOf="parent"
@@ -360,7 +365,7 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Насос работает(reg)"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -380,14 +385,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_count"
@@ -421,21 +425,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Параметры" />
+                android:layout_marginLeft="20dp"
+                android:text="Параметры"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_work_time"
@@ -464,14 +472,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_notWork_time"
@@ -501,13 +508,12 @@
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_difference"
@@ -539,18 +545,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_fix_time"
@@ -580,14 +586,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <ImageView
                             android:id="@+id/imageView6"
@@ -627,23 +632,27 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:text="Время включения" />
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="Время включения"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_on_timeH"
@@ -664,7 +673,7 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время включения(часы)"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -673,14 +682,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_on_timeM"
@@ -714,22 +722,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Время выключения" />
+                android:layout_marginLeft="20dp"
+                android:text="Время выключения"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/frame"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_off_timeH"
@@ -759,14 +771,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_off_timeM"

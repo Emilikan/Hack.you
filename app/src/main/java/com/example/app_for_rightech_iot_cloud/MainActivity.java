@@ -32,33 +32,34 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageView leftButton = findViewById(R.id.notific);
         final ImageView rightButton = findViewById(R.id.neuronet);
-        Toast.makeText(this,leftButton.getDrawable()+"",Toast.LENGTH_LONG).show();
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (title.getText() == "Уведомления"){
-                    leftButton.setImageResource(R.drawable.notification);
-                    rightButton.setImageResource(R.drawable.artificial_intelligence);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new MainFragment();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.notification);
+                    rightButton.setImageResource(R.drawable.artificial_intelligence);
                     title.setText("Метровагонмаш");
                 }
                 else {
                     if (title.getText() == "Нейросеть") {
-                        leftButton.setImageResource(R.drawable.notification);
-                        rightButton.setImageResource(R.drawable.artificial_intelligence);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new MainFragment();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.notification);
+                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+
                         title.setText("Метровагонмаш");
                     }
                 else{
-                    leftButton.setImageResource(R.drawable.ic_left_arrow);
-                    rightButton.setImageResource(R.drawable.artificial_intelligence);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Notifications();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.ic_left_arrow);
+                    rightButton.setImageResource(R.drawable.artificial_intelligence);
+
                     title.setText("Уведомления");
                 }
                 }
@@ -69,28 +70,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (title.getText() == "Уведомления"){
-                    leftButton.setImageResource(R.drawable.ic_left_arrow);
-                    rightButton.setImageResource(R.drawable.notification);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Neuronet();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.ic_left_arrow);
+                    rightButton.setImageResource(R.drawable.notification);
+
                     title.setText("Нейросеть");
                 }
                 else {
                     if (title.getText() == "Нейросеть") {
-                        leftButton.setImageResource(R.drawable.ic_left_arrow);
-                        rightButton.setImageResource(R.drawable.artificial_intelligence);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Notifications();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.ic_left_arrow);
+                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+
                         title.setText("Уведомления");
                     }
                     else{
-                        leftButton.setImageResource(R.drawable.ic_left_arrow);
-                        rightButton.setImageResource(R.drawable.notification);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Neuronet();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.ic_left_arrow);
+                        rightButton.setImageResource(R.drawable.notification);
+
                         title.setText("Нейросеть");
                     }
                 }

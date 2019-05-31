@@ -28,22 +28,25 @@
 
                     <ImageView
                         android:id="@+id/notific"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/notification" />
 
                     <TextView
                         android:id="@+id/title"
-                        android:layout_width="250dp"
+                        android:layout_width="260dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="Метровагонмаш"
-                        android:textSize="24sp" />
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        app:fontFamily="@font/roboto" />
 
                     <ImageView
                         android:id="@+id/neuronet"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="2dp"
                         android:src="@drawable/artificial_intelligence" />
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>

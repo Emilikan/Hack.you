@@ -50,12 +50,12 @@
                         android:textColor="#000000"
                         android:textSize="30sp"
                         android:textStyle="bold"
+                        app:fontFamily="@font/roboto"
                         app:layout_constraintBottom_toTopOf="@+id/textView15"
                         app:layout_constraintEnd_toStartOf="@+id/text_view_time"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/textView15"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:fontFamily="@font/roboto"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView15"
@@ -109,12 +109,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/temperature"
+                            app:svg="@raw/temperature"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
                             app:layout_constraintStart_toStartOf="parent"
@@ -161,12 +161,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView1"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/rn_indicator"
+                            app:svg="@raw/rn_indicator"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_rN"
                             app:layout_constraintStart_toStartOf="parent"
@@ -259,12 +259,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView2"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/density"
+                            app:svg="@raw/density"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_density"
                             app:layout_constraintStart_toStartOf="parent"
@@ -309,12 +309,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView3"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/level"
+                            app:svg="@raw/level"
                             app:layout_constraintBottom_toTopOf="@+id/textView20"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_level"
                             app:layout_constraintStart_toStartOf="parent"
@@ -378,12 +378,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView4"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/pump_on"
+                            app:svg="@raw/pump_on"
                             app:layout_constraintBottom_toTopOf="@+id/textView21"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_pump_work"
                             app:layout_constraintStart_toStartOf="parent"
@@ -651,12 +651,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView6"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/work_pump"
+                            app:svg="@raw/pump_work"
                             app:layout_constraintBottom_toTopOf="@+id/textView36"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_workReset"
                             app:layout_constraintStart_toStartOf="parent"

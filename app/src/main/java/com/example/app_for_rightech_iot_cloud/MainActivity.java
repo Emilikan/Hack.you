@@ -7,15 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -57,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Notifications();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.ic_left_arrow);
+                    leftButton.setImageResource(R.drawable.left_arrow);
                     rightButton.setImageResource(R.drawable.artificial_intelligence);
 
                     title.setText("Уведомления");
@@ -73,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Neuronet();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.ic_left_arrow);
+                    leftButton.setImageResource(R.drawable.left_arrow);
                     rightButton.setImageResource(R.drawable.notification);
 
                     title.setText("Нейросеть");
@@ -83,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Notifications();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.ic_left_arrow);
+                        leftButton.setImageResource(R.drawable.left_arrow);
                         rightButton.setImageResource(R.drawable.artificial_intelligence);
 
                         title.setText("Уведомления");
@@ -92,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Neuronet();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.ic_left_arrow);
+                        leftButton.setImageResource(R.drawable.left_arrow);
                         rightButton.setImageResource(R.drawable.notification);
 
                         title.setText("Нейросеть");

@@ -30,7 +30,6 @@
             android:text="42.2 C"
             android:textColor="#000"
             android:textSize="28sp"
-            android:textStyle="bold"
             app:fontFamily="@font/roboto"/>
 
         <com.caverock.androidsvg.SVGImageView

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/container"
+    android:background="#FFF"
     tools:context=".History">
 
     <ScrollView
@@ -31,7 +32,8 @@
                     android:gravity="center"
                     android:text="Последний день"
                     android:textColor="#0400ff"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    app:fontFamily="@font/roboto"/>
 
                 <TimePicker
                     android:id="@+id/timePicker"
@@ -47,27 +49,34 @@
                     android:layout_marginTop="5dp"
                     android:text="Сейчас"
                     android:textColor="#0400ff"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:fontFamily="@font/roboto"/>
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView11"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Параметры" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Параметры"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="75dp">
+                android:layout_width="346dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="7dp">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@drawable/frame"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame">
 
                     <TextView
                         android:id="@+id/text_view_date"
@@ -76,8 +85,10 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center"
                         android:text="14.05.2019"
+                        android:textColor="#000000"
                         android:textSize="30sp"
                         android:textStyle="bold"
+                        app:fontFamily="@font/roboto"
                         app:layout_constraintBottom_toTopOf="@+id/textView15"
                         app:layout_constraintEnd_toStartOf="@+id/text_view_time"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -92,51 +103,56 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
                         android:text="Время объекта"
-                        android:textSize="24sp"
+                        android:textColor="#000"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/text_view_time"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_view_date" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_date"
+                        app:fontFamily="@font/roboto"/>
 
                     <TextView
                         android:id="@+id/text_view_time"
                         android:layout_width="0dp"
-                        android:layout_height="70dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center"
                         android:text="22:27:50"
+                        android:textColor="#000"
                         android:textSize="36sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/textView15"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView15"
-                        app:layout_constraintTop_toTopOf="@+id/textView15" />
+                        app:layout_constraintTop_toTopOf="@+id/textView15"
+                        app:fontFamily="@font/roboto"/>
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/artificial_intelligence"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/temperature"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
                             app:layout_constraintStart_toStartOf="parent"
@@ -149,42 +165,46 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Температура СОЖ"
+                            android:textColor="#000"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_temperature" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_temperature"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_temperature"
                             android:layout_width="75dp"
                             android:layout_height="50dp"
                             android:gravity="center"
-                            android:text="28 C"
+                            android:text="28 °C"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView3"
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView1"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/notification"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/rn_indicator"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_rN"
                             app:layout_constraintStart_toStartOf="parent"
@@ -196,10 +216,12 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Показатель рН"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_rN" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_rN"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_rN"
@@ -207,24 +229,25 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text="8.3"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView1"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView1"
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_SOZ"
@@ -232,24 +255,28 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
-                            android:text="31.42 C"
+                            android:text="31.42 °C"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView25"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView25"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="115dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Температура СОЖ"
+                            android:textColor="#000"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_SOZ" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_SOZ"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -257,24 +284,25 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView2"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/notification"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/density"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_density"
                             app:layout_constraintStart_toStartOf="parent"
@@ -286,11 +314,13 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Концентрация эмульсии"
+                            android:textColor="#000"
                             android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_density" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_density"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_density"
@@ -298,29 +328,31 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text="7.84%"
+                            android:textColor="#000"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView3"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/notification"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/level"
                             app:layout_constraintBottom_toTopOf="@+id/textView20"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_level"
                             app:layout_constraintStart_toStartOf="parent"
@@ -328,14 +360,16 @@
 
                         <TextView
                             android:id="@+id/textView20"
-                            android:layout_width="115dp"
+                            android:layout_width="match_parent"
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Уровень СОЖ"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_level" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_level"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_level"
@@ -343,11 +377,13 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text="0.49м"
+                            android:textColor="#000"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView20"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView3"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -357,32 +393,40 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Насос" />
+                android:text="Насос"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView4"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:src="@drawable/notification"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/pump_on"
                             app:layout_constraintBottom_toTopOf="@+id/textView21"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_pump_work"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView21"
@@ -390,11 +434,13 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Насос работает(reg)"
-                            android:textSize="12sp"
+                            android:textColor="#000"
+                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_pump_work" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_pump_work"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_pump_work"
@@ -402,22 +448,23 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text="нет"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView4"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_count"
@@ -426,22 +473,26 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="8"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView26"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView26"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Управление"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_count" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_count"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
@@ -450,22 +501,28 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Параметры" />
+                android:text="Параметры"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_work_time"
@@ -474,34 +531,37 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="7:04:09:56"
+                            android:textColor="#000"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView28"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView28"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время работы"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_work_time" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_work_time"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_notWork_time"
@@ -510,34 +570,37 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="19:56:09:11"
+                            android:textColor="#000"
                             android:textSize="18sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView31"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView31"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время простоя"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_difference"
@@ -546,22 +609,26 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="00:00:02"
+                            android:textColor="#000"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView32"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView32"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Разница"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_difference" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_difference"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -569,18 +636,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_fix_time"
@@ -589,11 +656,13 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="12:45:02"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/text_view_fix_date"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_fix_date"
@@ -601,29 +670,31 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время фиксации(12:34:02)"
+                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_fix_time" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_fix_time"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
-                        <ImageView
+                        <com.caverock.androidsvg.SVGImageView
                             android:id="@+id/imageView6"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/notification"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="5dp"
+                            app:svg="@raw/pump_work"
                             app:layout_constraintBottom_toTopOf="@+id/textView36"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_workReset"
                             app:layout_constraintStart_toStartOf="parent"
@@ -633,11 +704,14 @@
                             android:id="@+id/textView36"
                             android:layout_width="115dp"
                             android:layout_height="25dp"
+                            android:gravity="center"
                             android:text="workreset"
+                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_workReset" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_workReset"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/text_view_workReset"
@@ -645,10 +719,12 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text="нет"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView6"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -656,23 +732,29 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:text="Время включения" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Время включения"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_on_timeH"
@@ -681,35 +763,38 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="6 ч"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView39"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView39"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время включения(часы)"
-                            android:textSize="10sp"
+                            android:textColor="#000"
+                            android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeH" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeH"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_on_timeM"
@@ -718,23 +803,27 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="20 мин"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView37"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView37"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время включения(мин)"
+                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeM" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeM"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
@@ -742,23 +831,29 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Время выключения" />
+                android:text="Время выключения"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/frame"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_off_timeH"
@@ -767,11 +862,13 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="5 ч"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView42"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView42"
@@ -779,37 +876,39 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время выключения(часы)"
+                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeH" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeH"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-
+                    android:layout_width="116dp"
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:background="@drawable/frame"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/frame">
 
                         <TextView
                             android:id="@+id/text_view_off_timeM"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="20 мин"
+                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView43"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:fontFamily="@font/roboto"/>
 
                         <TextView
                             android:id="@+id/textView43"
@@ -817,11 +916,13 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время выключения(мин)"
+                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeM" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeM"
+                            app:fontFamily="@font/roboto"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>

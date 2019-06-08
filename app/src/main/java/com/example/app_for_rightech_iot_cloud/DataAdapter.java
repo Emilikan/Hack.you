@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
@@ -19,6 +20,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         this.notifications = notifications;
         this.inflater = LayoutInflater.from(context);
     }
+
     @NonNull
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,13 +47,14 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView imageView, warningImageView;
         final TextView indicatorView, dateView, paramView;
-        ViewHolder(View view){
+
+        ViewHolder(View view) {
             super(view);
-            imageView = (ImageView)view.findViewById(R.id.image);
-            indicatorView = (TextView) view.findViewById(R.id.indicator);
-            dateView = (TextView) view.findViewById(R.id.date_and_time);
-            paramView = (TextView) view.findViewById(R.id.param);
-            warningImageView = (ImageView)view.findViewById(R.id.warning);
+            imageView = view.findViewById(R.id.image);
+            indicatorView = view.findViewById(R.id.indicator);
+            dateView = view.findViewById(R.id.date_and_time);
+            paramView = view.findViewById(R.id.param);
+            warningImageView = view.findViewById(R.id.warning);
         }
     }
 }

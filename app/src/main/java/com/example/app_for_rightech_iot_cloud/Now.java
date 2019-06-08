@@ -1,38 +1,37 @@
 package com.example.app_for_rightech_iot_cloud;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Objects;
-
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Now extends Fragment {
-    String nowDate;
-    String nowTime;
-    String RNTemp;
-    String indicatorRN;
-    String temp;
-    String density;
-    String level;
-    String pumpWork;
-    String control;
-    String workTime;
-    String notWorkTime;
-    String difference;
-    String fixTime;
-    String fixDate;
-    String workReset;
-    String onTimeH;
-    String onTimeM;
-    String offTimeH;
-    String offTimeM;
+    private String nowDate;
+    private String nowTime;
+    private String RNTemp;
+    private String indicatorRN;
+    private String temp;
+    private String density;
+    private String level;
+    private String pumpWork;
+    private String control;
+    private String workTime;
+    private String notWorkTime;
+    private String difference;
+    private String fixTime;
+    private String fixDate;
+    private String workReset;
+    private String onTimeH;
+    private String onTimeM;
+    private String offTimeH;
+    private String offTimeM;
+
 
 
     @Override
@@ -42,7 +41,7 @@ public class Now extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
         TextView textViewNowDate = rootView.findViewById(R.id.text_view_date);
@@ -83,6 +82,7 @@ public class Now extends Fragment {
         onTimeM = textViewOnTimeM.getText().toString();
         offTimeH = textViewOffTimeH.getText().toString();
         offTimeM = textViewOffTimeM.getText().toString();
+
         return rootView;
     }
 

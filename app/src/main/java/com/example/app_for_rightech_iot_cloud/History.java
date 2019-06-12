@@ -20,6 +20,7 @@ public class History extends Fragment {
     private TextView lastDay;
     private TextView now;
     Calendar calendar = Calendar.getInstance();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +32,7 @@ public class History extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
 
-
         mTimePicker = (TimePicker) rootView.findViewById(R.id.timePicker);
-
 
         mTimePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         mTimePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
@@ -67,17 +66,19 @@ public class History extends Fragment {
                 calendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
-    DatePickerDialog.OnDateSetListener d=new DatePickerDialog.OnDateSetListener() {
+
+    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setInitialDateTime();
-            Toast.makeText(getContext(),setInitialDateTime(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), setInitialDateTime(), Toast.LENGTH_SHORT).show();
         }
     };
+
     private String setInitialDateTime() {
-        return(DateUtils.formatDateTime(getContext(),
+        return (DateUtils.formatDateTime(getContext(),
                 calendar.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,26 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Now extends Fragment {
-    /*private String nowDate;
-    private String nowTime;
-    private String RNTemp;
-    private String indicatorRN;
-    private String temp;
-    private String density;
-    private String level;
-    private String pumpWork;
-    private String control;
-    private String workTime;
-    private String notWorkTime;
-    private String difference;
-    private String fixTime;
-    private String fixDate;
-    private String workReset;
-    private String onTimeH;
-    private String onTimeM;
-    private String offTimeH;
-    private String offTimeM;
-    */
 
     TextView textViewNowDate;
     TextView textViewNowTime;
@@ -100,28 +82,6 @@ public class Now extends Fragment {
         textViewOnTimeM = rootView.findViewById(R.id.text_view_on_timeM);
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
-
-        /*
-        nowDate = textViewNowDate.getText().toString();
-        nowTime = textViewNowTime.getText().toString();
-        RNTemp = textViewRNTemp.getText().toString();
-        indicatorRN = textViewIndicatorRN.getText().toString();
-        temp = textViewTemp.getText().toString();
-        density = textViewDensity.getText().toString();
-        level = textViewLevel.getText().toString();
-        pumpWork = textViewPumpWork.getText().toString();
-        control = textViewControl.getText().toString();
-        workTime = textViewWorkTime.getText().toString();
-        notWorkTime = textViewNotWorkTime.getText().toString();
-        difference = textViewDifference.getText().toString();
-        fixTime = textViewFixTime.getText().toString();
-        fixDate = textViewFixDate.getText().toString();
-        workReset = textViewWorkReset.getText().toString();
-        onTimeH = textViewOnTimeH.getText().toString();
-        onTimeM = textViewOnTimeM.getText().toString();
-        offTimeH = textViewOffTimeH.getText().toString();
-        offTimeM = textViewOffTimeM.getText().toString();
-        */
 
         serverRequest();
 
@@ -191,7 +151,6 @@ public class Now extends Fragment {
         if (nowElement.getAsJsonObject().get("active").toString().equals("true")) {
             JsonElement state = nowElement.getAsJsonObject().get("state");
 
-
             String timeObject = state.getAsJsonObject().get("_ts").getAsString(); // время объекта
             String tempPh = state.getAsJsonObject().get("temp_ph").getAsString(); // температура по данным pH-метра (в градусах по цельсию)
             String tempRef = state.getAsJsonObject().get("temp_ref").getAsString(); // температура по данным рефактометра (в градусах по цельсию)
@@ -209,14 +168,14 @@ public class Now extends Fragment {
             String timeDiff = state.getAsJsonObject().get("timediff").getAsString();
             String prevTime = state.getAsJsonObject().get("prevtime").getAsString(); // время фиксации
 
-            if(workReset.equals("true")){
+            if (workReset.equals("true")) {
                 workReset = "Да";
-            } else if(workReset.equals("false")){
+            } else if (workReset.equals("false")) {
                 workReset = "Нет";
             }
-            if(active.equals("true")){
+            if (active.equals("true")) {
                 active = "Да";
-            } else if(active.equals("false")){
+            } else if (active.equals("false")) {
                 active = "Нет";
             }
 
@@ -228,11 +187,11 @@ public class Now extends Fragment {
 
             textViewNowDate.setText(formatDate.format(dateObj));
             textViewNowTime.setText(formatTime.format(dateObj));
-            textViewRNTemp.setText(tempPh); // температура сож
-            textViewIndicatorRN.setText(ph);
-            textViewTemp.setText(tempRef); // температура сож
-            textViewDensity.setText(emulsioncalc); // концентрация эмульсии
-            textViewLevel.setText(level); // уровень сож в м
+            textViewRNTemp.setText(Double.toString(round(tempPh, 2)) + " \u2103"); // температура сож
+            textViewIndicatorRN.setText(Double.toString(round(ph, 2)));
+            textViewTemp.setText(Double.toString(round(tempRef, 2)) + " \u2103"); // температура сож
+            textViewDensity.setText(Double.toString(round(emulsioncalc, 2)) + " %"); // концентрация эмульсии
+            textViewLevel.setText(Double.toString(round(level, 2)) + " м"); // уровень сож в м
             textViewPumpWork.setText(active); // работает ли насос
             textViewWorkTime.setText(workTime);
             textViewNotWorkTime.setText(idleTime);
@@ -249,5 +208,12 @@ public class Now extends Fragment {
         }
     }
 
+    // округляем до places знаков после запятой (принимает String значения)
+    private static double round(String value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

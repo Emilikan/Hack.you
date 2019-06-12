@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-
 public class History extends Fragment {
     private TimePicker mTimePicker;
     private TextView lastDay;
@@ -60,6 +59,7 @@ public class History extends Fragment {
         });
         return rootView;
     }
+
     public void setDate(View v) {
         new DatePickerDialog(getContext(), d,
                 calendar.get(Calendar.YEAR),

@@ -135,6 +135,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/text_view_temperature"
                             app:fontFamily="@font/roboto"/>
 
+
                         <TextView
                             android:id="@+id/text_view_temperature"
                             android:layout_width="75dp"

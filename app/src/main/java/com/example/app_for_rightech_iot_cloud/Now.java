@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
@@ -19,12 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import okhttp3.internal.connection.StreamAllocation;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class Now extends Fragment {
     /*private String nowDate;
@@ -179,7 +178,6 @@ public class Now extends Fragment {
             String newName = response.get(i).getAsJsonObject().get("name").getAsString();
             if ((newId.equals(id)) && (newName.equals(name))) {
                 nowElement = response.get(i);
-                Toast.makeText(getContext(), "1", Toast.LENGTH_LONG).show();
                 setValues(nowElement);
                 break;
             }
@@ -224,8 +222,6 @@ public class Now extends Fragment {
 
             Date dateObj = new Date(Long.parseLong(timeObject));
             Date datePrev = new Date(Long.parseLong(prevTime));
-
-            Log.i("Roo1", dateObj + "");
 
             SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
             SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");

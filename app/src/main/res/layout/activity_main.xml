@@ -20,7 +20,36 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#FFF" />
+                android:background="#FFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/notific"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/notification" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="260dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Метровагонмаш"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        app:fontFamily="@font/roboto" />
+
+                    <ImageView
+                        android:id="@+id/neuronet"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/artificial_intelligence" />
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 

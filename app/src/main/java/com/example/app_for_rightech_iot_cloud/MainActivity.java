@@ -7,10 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import java.util.Objects;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -22,9 +21,79 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Метровагонмаш");
+        //setSupportActionBar(toolbar);
+        final TextView title = findViewById(R.id.title);
 
+        final ImageView leftButton = findViewById(R.id.notific);
+        final ImageView rightButton = findViewById(R.id.neuronet);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (title.getText() == "Уведомления"){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    Fragment fragment = new MainFragment();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.notification);
+                    rightButton.setImageResource(R.drawable.artificial_intelligence);
+                    title.setText("Метровагонмаш");
+                }
+                else {
+                    if (title.getText() == "Нейросеть") {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = new MainFragment();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.notification);
+                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+
+                        title.setText("Метровагонмаш");
+                    }
+                else{
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    Fragment fragment = new Notifications();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.left_arrow);
+                    rightButton.setImageResource(R.drawable.artificial_intelligence);
+
+                    title.setText("Уведомления");
+                }
+                }
+            }
+        });
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (title.getText() == "Уведомления"){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    Fragment fragment = new Neuronet();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    leftButton.setImageResource(R.drawable.left_arrow);
+                    rightButton.setImageResource(R.drawable.notification);
+
+                    title.setText("Нейросеть");
+                }
+                else {
+                    if (title.getText() == "Нейросеть") {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = new Notifications();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.left_arrow);
+                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+
+                        title.setText("Уведомления");
+                    }
+                    else{
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = new Neuronet();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        leftButton.setImageResource(R.drawable.left_arrow);
+                        rightButton.setImageResource(R.drawable.notification);
+
+                        title.setText("Нейросеть");
+                    }
+                }
+            }
+        });
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
@@ -32,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -52,5 +121,5 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Нейросеть");
         }
         return true;
-    }
+    }*/
 }

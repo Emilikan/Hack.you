@@ -12,8 +12,8 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"
+                    android:theme="@android:style/Theme.Black.NoTitleBar"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

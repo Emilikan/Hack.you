@@ -96,7 +96,7 @@ public class MainFragment extends Fragment {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
         viewPagerAdapter.addFragment(new Now(), "Состояние");
-        viewPagerAdapter.addFragment(new Hisrory(), "История");
+        viewPagerAdapter.addFragment(new History(), "История");
 
         viewPager.setAdapter(viewPagerAdapter);
     }

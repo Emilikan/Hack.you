@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    static final String BASE_URL = "https://rightech.lab.croc.ru/";
+    private static final String BASE_URL = "https://rightech.lab.croc.ru/";
     private static ApiAuth apiAuth;
     private boolean resp;
 
@@ -32,14 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("PARAM", 1);
                 startActivity(intent);
-                */
 
-                auth();
-
-
+                //auth();
             }
         });
     }
@@ -75,26 +71,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "error: " + t, Toast.LENGTH_LONG).show();
             }
         });
-
-        /*Call<AuthResponse> call = apiAuth.authResponse(body);
-        call.enqueue(new Callback<AuthResponse>() {
-            @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if (response.body()!=null) {
-                    Toast.makeText(LoginActivity.this, response.body() + "", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_LONG).show();
-            }
-        });
-        */
     }
 }

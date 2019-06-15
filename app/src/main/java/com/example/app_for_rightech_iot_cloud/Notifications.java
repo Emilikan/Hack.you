@@ -1,5 +1,7 @@
 package com.example.app_for_rightech_iot_cloud;
+
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,14 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Notifications extends Fragment {
-    List<NotificationsForRecycler> notifications = new ArrayList<>();
+    private List<NotificationsForRecycler> notifications = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notifications, container, false);
         setInitialData();
@@ -28,8 +31,9 @@ public class Notifications extends Fragment {
         recyclerView.setAdapter(adapter);
         return rootView;
     }
-    private void setInitialData(){
 
+
+    private void setInitialData() {
         notifications.add(new NotificationsForRecycler ("42.2 C", "23.09.2012", R.raw.temperature,R.raw.alert,"Температура СОЖ"));
         notifications.add(new NotificationsForRecycler ("8.76 %", "24.09.2013", R.raw.density,R.raw.alert,"Концентрация эмульсии"));
         notifications.add(new NotificationsForRecycler ("9.3", "21.08.2093", R.raw.rn_indicator,R.raw.alert,"Показатель рН"));

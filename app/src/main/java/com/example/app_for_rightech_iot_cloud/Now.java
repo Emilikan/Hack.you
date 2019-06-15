@@ -54,8 +54,6 @@ public class Now extends Fragment {
     TextView textViewTemp;
     TextView textViewDensity;
     TextView textViewLevel;
-    TextView textViewPumpWork;
-    TextView textViewControl;
     TextView textViewWorkTime;
     TextView textViewNotWorkTime;
     TextView textViewDifference;
@@ -88,8 +86,6 @@ public class Now extends Fragment {
         textViewTemp = rootView.findViewById(R.id.text_view_SOZ);
         textViewDensity = rootView.findViewById(R.id.text_view_density);
         textViewLevel = rootView.findViewById(R.id.text_view_level);
-        textViewPumpWork = rootView.findViewById(R.id.text_view_pump_work);
-        textViewControl = rootView.findViewById(R.id.text_view_count);
         textViewWorkTime = rootView.findViewById(R.id.text_view_work_time);
         textViewNotWorkTime = rootView.findViewById(R.id.text_view_notWork_time);
         textViewDifference = rootView.findViewById(R.id.text_view_difference);
@@ -233,7 +229,6 @@ public class Now extends Fragment {
             textViewTemp.setText(tempRef); // температура сож
             textViewDensity.setText(emulsioncalc); // концентрация эмульсии
             textViewLevel.setText(level); // уровень сож в м
-            textViewPumpWork.setText(active); // работает ли насос
             textViewWorkTime.setText(workTime);
             textViewNotWorkTime.setText(idleTime);
             textViewDifference.setText(timeDiff);

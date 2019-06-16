@@ -26,6 +26,7 @@ import com.google.gson.JsonElement;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -176,27 +177,6 @@ public class History extends Fragment {
             //newTime();
         }
     };
-
-    // метод обновления информации на основе новой даты
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void newTime(long startTimeMilis, long endTimeMilis) {
-        if (!isOnline(Objects.requireNonNull(getContext()))) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
-            builder.setTitle("Warning")
-                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
-                    .setCancelable(false)
-                    .setNegativeButton("Ок, закрыть",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            getResponse(id, startTimeMilis, endTimeMilis);
-        }
-    }
 
     // для календаря
     private String setInitialDateTime() {
@@ -353,6 +333,41 @@ public class History extends Fragment {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    // функция принимает дату и время и отдает микросекуды
+    private long getMicroseconds (String myDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(myDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long millis = (date.getTime() * 1000) + 999;
+
+        return millis;
+    }
+
+    // метод обновления информации на основе новой даты
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void newTime(long startTimeMilis, long endTimeMilis) {
+        if (!isOnline(Objects.requireNonNull(getContext()))) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+            builder.setTitle("Warning")
+                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
+                    .setCancelable(false)
+                    .setNegativeButton("Ок, закрыть",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            getResponse(id, startTimeMilis, endTimeMilis);
+        }
     }
 
 

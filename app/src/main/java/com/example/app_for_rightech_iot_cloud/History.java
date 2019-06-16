@@ -28,8 +28,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -74,6 +76,10 @@ public class History extends Fragment {
     private TextView textViewOnTimeM;
     private TextView textViewOffTimeH;
     private TextView textViewOffTimeM;
+
+    private JsonArray crutchJsonArray;
+
+    private List<Long> arrayOfTimeInDay = new ArrayList<>();
 
     private String id;
 
@@ -185,8 +191,9 @@ public class History extends Fragment {
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
-    // получаем ответ от сервера
-    private void getResponse(String id, long begin, long end) {
+    // получаем ответ от сервера. Кст, костыль. Неплохо было бы его переписать
+    private JsonArray getResponse(String id, long begin, long end) {
+        JsonArray array;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -199,7 +206,7 @@ public class History extends Fragment {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if (response.body() != null) {
                     Log.i("Request", response.body().toString());
-                    setValues(response.body());
+                    crutchJsonArray = response.body();
                 } else {
                     // написать обработку
                 }
@@ -211,6 +218,7 @@ public class History extends Fragment {
                 Log.i("Request", "error " + t);
             }
         });
+        return null;
     }
 
     // устанавливаем значения
@@ -255,7 +263,7 @@ public class History extends Fragment {
             SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
 
             try {
-                timeObj=Long.parseLong(timeObject);
+                timeObj = Long.parseLong(timeObject);
                 Date dateObj = new Date(timeObj / 1000);
                 textViewNowDate.setText(formatDate.format(dateObj));
                 textViewNowTime.setText(formatTime.format(dateObj));
@@ -266,7 +274,7 @@ public class History extends Fragment {
             }
 
             try {
-                timePr=Long.parseLong(prevTime);
+                timePr = Long.parseLong(prevTime);
                 Date datePrev = new Date(timePr / 1000);
                 textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
                 textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
@@ -277,7 +285,7 @@ public class History extends Fragment {
             }
 
             try {
-                timeW=Long.parseLong(workTime);
+                timeW = Long.parseLong(workTime);
                 Date timeWork = new Date(timeW / 1000);
                 textViewWorkTime.setText(workTime);
             } catch (Exception e) {
@@ -286,7 +294,7 @@ public class History extends Fragment {
             }
 
             try {
-                timeIdle=Long.parseLong(idleTime);
+                timeIdle = Long.parseLong(idleTime);
                 Date timeStop = new Date(timeIdle / 1000);
                 textViewNotWorkTime.setText(idleTime);
             } catch (Exception e) {
@@ -335,8 +343,8 @@ public class History extends Fragment {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    // функция принимает дату и время и отдает микросекуды
-    private long getMicroseconds (String myDate){
+    // функция принимает дату и время и отдает милисекунды
+    private long getMilisecond(String myDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = null;
         try {
@@ -344,14 +352,18 @@ public class History extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        long millis = (date.getTime() * 1000) + 999;
+        long miliS = date.getTime();
 
-        return millis;
+        return miliS;
     }
 
-    // метод обновления информации на основе новой даты
+    // записываем все милисекунды за день в массив
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void newTime(long startTimeMilis, long endTimeMilis) {
+    private void getAllMs(String thisDate, String thisTime) {
+        long thisMs = getMilisecond(thisDate + " " + thisTime);
+        long startMS = getMilisecond(thisDate + " " + "00:00:00");
+
+        JsonArray mainArray;
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -366,7 +378,39 @@ public class History extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            getResponse(id, startTimeMilis, endTimeMilis);
+            // костыль))) Надо бы переписать :)
+            getResponse(id, startMS, thisMs);
+            mainArray = crutchJsonArray;
+            crutchJsonArray = new JsonArray();
+
+
+            for (int i = 0; i < mainArray.size(); i++) {
+                String timeStr = mainArray.get(i).getAsJsonObject().get("time").getAsString();
+                arrayOfTimeInDay.add(Long.parseLong(timeStr));
+                // отсюда продолжать
+            }
+
+        }
+    }
+
+    // метод обновления информации на основе новой даты
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void newTime() {
+        if (!isOnline(Objects.requireNonNull(getContext()))) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+            builder.setTitle("Warning")
+                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
+                    .setCancelable(false)
+                    .setNegativeButton("Ок, закрыть",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            // начать преобразоввывать
         }
     }
 

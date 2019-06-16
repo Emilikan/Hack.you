@@ -11,7 +11,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +101,7 @@ public class History extends Fragment {
         mTimePicker.setIs24HourView(true);
         now = rootView.findViewById(R.id.now);
         lastDay = rootView.findViewById(R.id.lastDay);
+        lastDay.setText(setInitialDateTime());
 
         textViewNowDate = rootView.findViewById(R.id.text_view_date);
         textViewNowTime = rootView.findViewById(R.id.text_view_time);
@@ -161,7 +161,16 @@ public class History extends Fragment {
         } else {
             //getResponse(id, begin, end);
         }
+        //получение времени
+        mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                Toast.makeText(getContext(), hourOfDay+" "+minute,
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return rootView;
     }
 
@@ -179,16 +188,14 @@ public class History extends Fragment {
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setInitialDateTime();
+            lastDay.setText(setInitialDateTime());
             Toast.makeText(getContext(), setInitialDateTime(), Toast.LENGTH_SHORT).show();
             //newTime();
         }
     };
-
     // для календаря
     private String setInitialDateTime() {
-        return (DateUtils.formatDateTime(getContext(),
-                calendar.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+        return (calendar.get(Calendar.DAY_OF_MONTH)+"."+(calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.YEAR));
     }
 
     // получаем ответ от сервера. Кст, костыль. Неплохо было бы его переписать

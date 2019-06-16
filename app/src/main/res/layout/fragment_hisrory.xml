@@ -31,9 +31,10 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Последний день"
+                    android:textAllCaps="false"
                     android:textColor="#0400ff"
                     android:textSize="15sp"
-                    app:fontFamily="@font/roboto"/>
+                    app:fontFamily="@font/roboto" />
 
                 <TimePicker
                     android:id="@+id/timePicker"

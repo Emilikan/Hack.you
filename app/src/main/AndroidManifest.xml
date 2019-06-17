@@ -14,7 +14,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Enter">
+        <activity android:name=".Enter"/>
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity">
@@ -25,10 +25,6 @@
                     android:theme="@android:style/Theme.NoTitleBar" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
-
         </activity>
     </application>
 

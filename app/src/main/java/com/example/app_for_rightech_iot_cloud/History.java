@@ -109,8 +109,8 @@ public class History extends Fragment {
         textViewTemp = rootView.findViewById(R.id.text_view_SOZ);
         textViewDensity = rootView.findViewById(R.id.text_view_density);
         textViewLevel = rootView.findViewById(R.id.text_view_level);
-        textViewPumpWork = rootView.findViewById(R.id.text_view_pump_work);
-        textViewControl = rootView.findViewById(R.id.text_view_count);
+        //textViewPumpWork = rootView.findViewById(R.id.text_view_pump_work);
+        //textViewControl = rootView.findViewById(R.id.text_view_count);
         textViewWorkTime = rootView.findViewById(R.id.text_view_work_time);
         textViewNotWorkTime = rootView.findViewById(R.id.text_view_notWork_time);
         textViewDifference = rootView.findViewById(R.id.text_view_difference);
@@ -254,11 +254,11 @@ public class History extends Fragment {
         } else if (workReset.equals("false")) {
             workReset = "Нет";
         }
-        if (active.equals("true")) {
+        /*if (active.equals("true")) {
             active = "Да";
         } else if (active.equals("false")) {
             active = "Нет";
-        }
+        }*/
 
         long timeObj;
         long timePr;
@@ -313,7 +313,7 @@ public class History extends Fragment {
         textViewTemp.setText(round(tempRef, 2) + " \u2103"); // температура сож
         textViewDensity.setText(round(emulsioncalc, 2) + " %"); // концентрация эмульсии
         textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
-        textViewPumpWork.setText(active); // работает ли насос
+        //textViewPumpWork.setText(active); // работает ли насос
         textViewDifference.setText(timeDiff);
         textViewWorkReset.setText(workReset); // workreset
         textViewOnTimeH.setText(nTonH);

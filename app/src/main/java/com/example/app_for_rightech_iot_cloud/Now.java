@@ -178,7 +178,7 @@ public class Now extends Fragment {
             String level = getDataFromJson(state, "level"); // уровень СОЖ
             String emulsioncalc = getDataFromJson(state, "emulsioncalc"); // концентрация эмульсии
             String ph = getDataFromJson(state, "ph"); // показатель pH
-            String active = getDataFromJson(state, "ctrl_wrd_work"); // состояние насоса
+            //String active = getDataFromJson(state, "ctrl_wrd_work"); // состояние насоса
             String workTime = getDataFromJson(state, "worktime"); // время работы
             String idleTime = getDataFromJson(state, "idletime"); // время простоя
             String nTonH = getDataFromJson(state, "ntonh"); // время включения (часы)
@@ -194,11 +194,11 @@ public class Now extends Fragment {
             } else if (workReset.equals("false")) {
                 workReset = "Нет";
             }
-            if (active.equals("true")) {
+            /*if (active.equals("true")) {
                 active = "Да";
             } else if (active.equals("false")) {
                 active = "Нет";
-            }
+            }*/
 
             long timeObj;
             long timePr;
@@ -253,7 +253,7 @@ public class Now extends Fragment {
             textViewTemp.setText(round(tempRef, 2) + " \u2103"); // температура сож
             textViewDensity.setText(round(emulsioncalc, 2) + " %"); // концентрация эмульсии
             textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
-            textViewPumpWork.setText(active); // работает ли насос
+            //textViewPumpWork.setText(active); // работает ли насос
             textViewDifference.setText(timeDiff);
             textViewWorkReset.setText(workReset); // workreset
             textViewOnTimeH.setText(nTonH);

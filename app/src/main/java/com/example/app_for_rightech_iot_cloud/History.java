@@ -26,12 +26,13 @@ import com.google.gson.JsonElement;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.acl.LastOwnerException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -78,8 +79,6 @@ public class History extends Fragment {
     private TextView textViewOffTimeM;
 
     private JsonArray crutchJsonArray;
-
-    private List<Long> arrayOfTimeInDay = new ArrayList<>();
 
     private String id;
 
@@ -145,6 +144,9 @@ public class History extends Fragment {
         id = "5c65c98449cc586cdfa0fc26"; // написать получение id из SharedPreference
 
 
+        getAllMs("14/05/2019", "22:30:10");
+
+
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -159,7 +161,7 @@ public class History extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            //getResponse(id, begin, end);
+            //getResponseEnqueue(id, begin, end);
         }
 
         return rootView;
@@ -192,7 +194,7 @@ public class History extends Fragment {
     }
 
     // получаем ответ от сервера. Кст, костыль. Неплохо было бы его переписать
-    private JsonArray getResponse(String id, long begin, long end) {
+    private JsonArray getResponseEnqueue(String id, long begin, long end) {
         JsonArray array;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -222,100 +224,97 @@ public class History extends Fragment {
     }
 
     // устанавливаем значения
-    private void setValues(JsonArray nowElement1) {
-        for (int i = 0; i < nowElement1.size(); i++) {
-            JsonElement state = nowElement1.get(i);
+    private void setValues(JsonElement state) {
+        String timeObject = getDataFromJson(state, "_ts"); // время объекта
+        String tempPh = getDataFromJson(state, "temp_ph"); // температура по данным pH-метра (в градусах по цельсию)
+        String tempRef = getDataFromJson(state, "temp_ref"); // температура по данным рефактометра (в градусах по цельсию)
+        String level = getDataFromJson(state, "level"); // уровень СОЖ
+        String emulsioncalc = getDataFromJson(state, "emulsioncalc"); // концентрация эмульсии
+        String ph = getDataFromJson(state, "ph"); // показатель pH
+        String active = getDataFromJson(state, "ctrl_wrd_work"); // состояние насоса
+        String workTime = getDataFromJson(state, "worktime"); // время работы
+        String idleTime = getDataFromJson(state, "idletime"); // время простоя
+        String nTonH = getDataFromJson(state, "ntonh"); // время включения (часы)
+        String nTonM = getDataFromJson(state, "ntonm"); // время включения (минуты)
+        String nTofH = getDataFromJson(state, "ntofh"); // время выключения (часы)
+        String nTofM = getDataFromJson(state, "ntofm"); // время выключения (минуты)
+        String workReset = getDataFromJson(state, "workreset");
+        String timeDiff = getDataFromJson(state, "timediff");
+        String prevTime = getDataFromJson(state, "prevtime"); // время фиксации
 
-            String timeObject = getDataFromJson(state, "_ts"); // время объекта
-            String tempPh = getDataFromJson(state, "temp_ph"); // температура по данным pH-метра (в градусах по цельсию)
-            String tempRef = getDataFromJson(state, "temp_ref"); // температура по данным рефактометра (в градусах по цельсию)
-            String level = getDataFromJson(state, "level"); // уровень СОЖ
-            String emulsioncalc = getDataFromJson(state, "emulsioncalc"); // концентрация эмульсии
-            String ph = getDataFromJson(state, "ph"); // показатель pH
-            String active = getDataFromJson(state, "ctrl_wrd_work"); // состояние насоса
-            String workTime = getDataFromJson(state, "worktime"); // время работы
-            String idleTime = getDataFromJson(state, "idletime"); // время простоя
-            String nTonH = getDataFromJson(state, "ntonh"); // время включения (часы)
-            String nTonM = getDataFromJson(state, "ntonm"); // время включения (минуты)
-            String nTofH = getDataFromJson(state, "ntofh"); // время выключения (часы)
-            String nTofM = getDataFromJson(state, "ntofm"); // время выключения (минуты)
-            String workReset = getDataFromJson(state, "workreset");
-            String timeDiff = getDataFromJson(state, "timediff");
-            String prevTime = getDataFromJson(state, "prevtime"); // время фиксации
-
-            if (workReset.equals("true")) {
-                workReset = "Да";
-            } else if (workReset.equals("false")) {
-                workReset = "Нет";
-            }
-            if (active.equals("true")) {
-                active = "Да";
-            } else if (active.equals("false")) {
-                active = "Нет";
-            }
-
-            long timeObj;
-            long timePr;
-            long timeW;
-            long timeIdle;
-
-            SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
-            SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
-
-            try {
-                timeObj = Long.parseLong(timeObject);
-                Date dateObj = new Date(timeObj / 1000);
-                textViewNowDate.setText(formatDate.format(dateObj));
-                textViewNowTime.setText(formatTime.format(dateObj));
-
-            } catch (Exception e) {
-                textViewNowDate.setText("Null");
-                textViewNowTime.setText("Null");
-            }
-
-            try {
-                timePr = Long.parseLong(prevTime);
-                Date datePrev = new Date(timePr / 1000);
-                textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
-                textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
-
-            } catch (Exception e) {
-                textViewFixTime.setText("Null");
-                textViewFixDate.setText("Null");
-            }
-
-            try {
-                timeW = Long.parseLong(workTime);
-                Date timeWork = new Date(timeW / 1000);
-                textViewWorkTime.setText(workTime);
-            } catch (Exception e) {
-                textViewFixTime.setText("Null");
-                textViewFixDate.setText("Null");
-            }
-
-            try {
-                timeIdle = Long.parseLong(idleTime);
-                Date timeStop = new Date(timeIdle / 1000);
-                textViewNotWorkTime.setText(idleTime);
-            } catch (Exception e) {
-                textViewWorkTime.setText("Null");
-                textViewNotWorkTime.setText("Null");
-            }
-
-            textViewRNTemp.setText(round(tempPh, 2) + " \u2103"); // температура сож
-            textViewIndicatorRN.setText(Double.toString(round(ph, 2)));
-            textViewTemp.setText(round(tempRef, 2) + " \u2103"); // температура сож
-            textViewDensity.setText(round(emulsioncalc, 2) + " %"); // концентрация эмульсии
-            textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
-            textViewPumpWork.setText(active); // работает ли насос
-            textViewDifference.setText(timeDiff);
-            textViewWorkReset.setText(workReset); // workreset
-            textViewOnTimeH.setText(nTonH);
-            textViewOnTimeM.setText(nTonM);
-            textViewOffTimeH.setText(nTofH);
-            textViewOffTimeM.setText(nTofM);
-
+        if (workReset.equals("true")) {
+            workReset = "Да";
+        } else if (workReset.equals("false")) {
+            workReset = "Нет";
         }
+        if (active.equals("true")) {
+            active = "Да";
+        } else if (active.equals("false")) {
+            active = "Нет";
+        }
+
+        long timeObj;
+        long timePr;
+        long timeW;
+        long timeIdle;
+
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
+
+        try {
+            timeObj = Long.parseLong(timeObject);
+            Date dateObj = new Date(timeObj / 1000);
+            textViewNowDate.setText(formatDate.format(dateObj));
+            textViewNowTime.setText(formatTime.format(dateObj));
+
+        } catch (Exception e) {
+            textViewNowDate.setText("Null");
+            textViewNowTime.setText("Null");
+        }
+
+        try {
+            timePr = Long.parseLong(prevTime);
+            Date datePrev = new Date(timePr / 1000);
+            textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
+            textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
+
+        } catch (Exception e) {
+            textViewFixTime.setText("Null");
+            textViewFixDate.setText("Null");
+        }
+
+        try {
+            timeW = Long.parseLong(workTime);
+            Date timeWork = new Date(timeW / 1000);
+            textViewWorkTime.setText(workTime);
+        } catch (Exception e) {
+            textViewFixTime.setText("Null");
+            textViewFixDate.setText("Null");
+        }
+
+        try {
+            timeIdle = Long.parseLong(idleTime);
+            Date timeStop = new Date(timeIdle / 1000);
+            textViewNotWorkTime.setText(idleTime);
+        } catch (Exception e) {
+            textViewWorkTime.setText("Null");
+            textViewNotWorkTime.setText("Null");
+        }
+
+        textViewRNTemp.setText(round(tempPh, 2) + " \u2103"); // температура сож
+        textViewIndicatorRN.setText(Double.toString(round(ph, 2)));
+        textViewTemp.setText(round(tempRef, 2) + " \u2103"); // температура сож
+        textViewDensity.setText(round(emulsioncalc, 2) + " %"); // концентрация эмульсии
+        textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
+        textViewPumpWork.setText(active); // работает ли насос
+        textViewDifference.setText(timeDiff);
+        textViewWorkReset.setText(workReset); // workreset
+        textViewOnTimeH.setText(nTonH);
+        textViewOnTimeM.setText(nTonM);
+        textViewOffTimeH.setText(nTofH);
+        textViewOffTimeM.setText(nTofM);
+
+
     }
 
     // получаем значение из json
@@ -357,13 +356,13 @@ public class History extends Fragment {
         return miliS;
     }
 
-    // записываем все милисекунды за день в массив
+    // записываем все милисекунды за день в массив и продолжаем
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getAllMs(String thisDate, String thisTime) {
-        long thisMs = getMilisecond(thisDate + " " + thisTime);
-        long startMS = getMilisecond(thisDate + " " + "00:00:00");
+        final long thisMs = getMilisecond(thisDate + " " + thisTime);
+        final long startMS = getMilisecond(thisDate + " " + "00:00:00");
 
-        JsonArray mainArray;
+        final JsonArray mainArray;
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -378,19 +377,66 @@ public class History extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            // костыль))) Надо бы переписать :)
-            getResponse(id, startMS, thisMs);
-            mainArray = crutchJsonArray;
-            crutchJsonArray = new JsonArray();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
+            ApiHistory apiHistory = retrofit.create(ApiHistory.class);
 
-            for (int i = 0; i < mainArray.size(); i++) {
-                String timeStr = mainArray.get(i).getAsJsonObject().get("time").getAsString();
-                arrayOfTimeInDay.add(Long.parseLong(timeStr));
-                // отсюда продолжать
-            }
+            apiHistory.allObject(id, startMS, thisMs).enqueue(new Callback<JsonArray>() {
+                @Override
+                public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                    if (response.body() != null) {
+                        Log.i("Request", response.body().toString());
+                        Log.i("Request1", startMS + " " + thisMs);
 
+                        ArrayList<Long> arrOfAllTimeInDay = new ArrayList<>();
+                        for (int i = 0; i < response.body().size(); i++) {
+                            String timeStr = response.body().get(i).getAsJsonObject().get("time").getAsString();
+                            arrOfAllTimeInDay.add(Long.parseLong(timeStr));
+                        }
+                        getNewState(thisMs, arrOfAllTimeInDay, response.body());
+                    } else {
+                        Toast.makeText(getContext(), "Ответ равен null", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonArray> call, Throwable t) {
+                    Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
+                    Log.i("Request", "error " + t);
+                }
+            });
         }
+    }
+
+    // определяем ближайшее время и получаем объект
+    private void getNewState(long miliS, ArrayList<Long> allDate, JsonArray allState) {
+        Toast.makeText(getContext(), "r", Toast.LENGTH_LONG).show();
+        Collections.sort(allDate);
+        JsonElement thisState = null;
+        long findTime = allDate.get(0);
+        for (int i = 0; i < allDate.size(); i++) {
+            if (i != 0 && allDate.get(i) <= miliS) {
+                findTime = allDate.get(i);
+            } else if (i != 0 && allDate.get(i) > miliS) {
+                break;
+            }
+        }
+
+        for (int i = 0; i < allState.size(); i++) {
+            if ((allState.get(i).getAsJsonObject().get("time").getAsString()).equals(Long.toString(findTime))) {
+                thisState = allState.get(i);
+            }
+        }
+
+        if (thisState != null) {
+            setValues(thisState);
+        } else {
+            Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     // метод обновления информации на основе новой даты

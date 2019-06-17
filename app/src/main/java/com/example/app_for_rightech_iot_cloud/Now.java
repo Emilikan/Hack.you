@@ -36,7 +36,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Now extends Fragment {
-
     private TextView textViewNowDate;
     private TextView textViewNowTime;
     private TextView textViewRNTemp;
@@ -79,8 +78,6 @@ public class Now extends Fragment {
         textViewTemp = rootView.findViewById(R.id.text_view_SOZ);
         textViewDensity = rootView.findViewById(R.id.text_view_density);
         textViewLevel = rootView.findViewById(R.id.text_view_level);
-        textViewPumpWork = rootView.findViewById(R.id.text_view_pump_work);
-        textViewControl = rootView.findViewById(R.id.text_view_count);
         textViewWorkTime = rootView.findViewById(R.id.text_view_work_time);
         textViewNotWorkTime = rootView.findViewById(R.id.text_view_notWork_time);
         textViewDifference = rootView.findViewById(R.id.text_view_difference);

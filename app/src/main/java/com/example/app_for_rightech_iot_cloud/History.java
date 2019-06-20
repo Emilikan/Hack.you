@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -88,9 +89,9 @@ public class History extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
 
         mTimePicker = rootView.findViewById(R.id.timePicker);
 
@@ -144,9 +145,6 @@ public class History extends Fragment {
         id = "5c65c98449cc586cdfa0fc26"; // написать получение id из SharedPreference
 
 
-        //getAllMs("14.05.2019", "22:30:10");
-
-
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -163,6 +161,7 @@ public class History extends Fragment {
         } else {
             newStateWhenNewDate(thisDate, thisTime);
         }
+
         //получение времени
         mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -205,36 +204,6 @@ public class History extends Fragment {
         return df.format(calendar.getTime());
     }
 
-    // получаем ответ от сервера. Кст, костыль. Неплохо было бы его переписать
-    private JsonArray getResponseEnqueue(String id, long begin, long end) {
-        JsonArray array;
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiHistory apiHistory = retrofit.create(ApiHistory.class);
-
-        apiHistory.allObject(id, begin, end).enqueue(new Callback<JsonArray>() {
-            @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                if (response.body() != null) {
-                    Log.i("Request", response.body().toString());
-                    crutchJsonArray = response.body();
-                } else {
-                    // написать обработку
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
-                Log.i("Request", "error " + t);
-            }
-        });
-        return null;
-    }
-
     // устанавливаем значения
     private void setValues(JsonElement state) {
         String timeObject = getDataFromJson(state, "_ts"); // время объекта
@@ -259,11 +228,11 @@ public class History extends Fragment {
         } else if (workReset.equals("false")) {
             workReset = "Нет";
         }
-        /*if (active.equals("true")) {
+        if (active.equals("true")) {
             active = "Да";
         } else if (active.equals("false")) {
             active = "Нет";
-        }*/
+        }
 
         long timeObj;
         long timePr;
@@ -355,7 +324,7 @@ public class History extends Fragment {
     }
 
     // функция принимает дату и время и отдает милисекунды
-    private long getMilisecond(String myDate) {
+    private long getMillisecond(String myDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Date date = null;
         try {
@@ -369,9 +338,10 @@ public class History extends Fragment {
 
     // записываем все милисекунды за день в массив и продолжаем
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void getAllMs(String thisDate, String thisTime) {
-        final long thisMs = getMilisecond(thisDate + " " + thisTime);
-        final long startMS = getMilisecond(thisDate + " " + "00:00:00");
+    private void getAllMs(final String thisDate, String thisTime) {
+        final long thisMs = getMillisecond(thisDate + " " + thisTime);
+        final long startMS = getMillisecond(thisDate + " " + "00:00:00");
+        long endMs = getMillisecond(thisDate +  " " + "23:59:59");
 
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
@@ -394,13 +364,10 @@ public class History extends Fragment {
 
             ApiHistory apiHistory = retrofit.create(ApiHistory.class);
 
-            apiHistory.allObject(id, startMS, thisMs).enqueue(new Callback<JsonArray>() {
+            apiHistory.allObject(id, startMS, endMs).enqueue(new Callback<JsonArray>() {
                 @Override
                 public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                     if (response.body() != null) {
-                        Log.i("Request", response.body().toString());
-                        Log.i("Request1", startMS + " " + thisMs);
-
                         ArrayList<Long> arrOfAllTimeInDay = new ArrayList<>();
                         for (int i = 0; i < response.body().size(); i++) {
                             String timeStr = response.body().get(i).getAsJsonObject().get("time").getAsString();
@@ -408,7 +375,7 @@ public class History extends Fragment {
                         }
                         allStateForTime = response.body();
                         allTimeForTime = arrOfAllTimeInDay;
-                        getNewState(thisMs, arrOfAllTimeInDay, response.body());
+                        getNewState(thisDate, thisMs, arrOfAllTimeInDay, response.body());
                     } else {
                         Toast.makeText(getContext(), "Ответ равен null", Toast.LENGTH_LONG).show();
                     }
@@ -424,7 +391,7 @@ public class History extends Fragment {
     }
 
     // определяем ближайшее время и получаем объект
-    private void getNewState(long miliS, ArrayList<Long> allDate, JsonArray allState) {
+    private void getNewState(String date, long miliS, ArrayList<Long> allDate, JsonArray allState) {
         Collections.sort(allDate);
         JsonElement thisState = null;
         try {
@@ -446,10 +413,12 @@ public class History extends Fragment {
             if (thisState != null) {
                 setValues(thisState);
             } else {
-                Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
+                setActualDate(date);
+                //Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
+            setActualDate(date);
+            //Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -478,14 +447,114 @@ public class History extends Fragment {
     // чтобы каждый раз при смене времени не обращаться к серверу
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void newStateWhenNewTime(String thisDate, String thisTime) {
-        long thisMs = getMilisecond(thisDate + " " + thisTime);
-        if(allTimeForTime != null && allStateForTime != null) {
-            getNewState(thisMs, allTimeForTime, allStateForTime);
+        long thisMs = getMillisecond(thisDate + " " + thisTime);
+        if(allTimeForTime != null && allStateForTime != null && allStateForTime.size()>0) {
+            getNewState(thisDate, thisMs, allTimeForTime, allStateForTime);
         } else {
             // если вдруг что-то пошло не так
             newStateWhenNewDate(thisDate, thisTime);
         }
     }
+
+    // получаем актуальную дату и время
+    private void setActualDate(final String thisDate){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiGetAllObjects apiGetAllObjects = retrofit.create(ApiGetAllObjects.class);
+
+        apiGetAllObjects.allObjects().enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.body() != null) {
+                    Log.i("Request", response.body().toString());
+                    // переписать, чтобы можно было выбирать из toolbar
+                    JsonElement actualElement = findElement("5c65c98449cc586cdfa0fc26", "Метровагонмаш", response.body());
+                    if(actualElement != null){
+                        final JsonElement state = actualElement.getAsJsonObject().get("state");
+                        final long stateDateInMs = Long.parseLong(getDataFromJson(state, "_ts"))/1000;
+                        long startTimeOfThisDay = getMillisecond(thisDate + " " + "00:00:00");
+                        Log.i("FFF", startTimeOfThisDay + ", " + stateDateInMs);
+                        // если дата объекта не совпадает с текущей, то говорим об этом пользователю
+
+                        if(stateDateInMs < startTimeOfThisDay){
+                            // выводим alertDialog с предложением перейти на актуальное время объекта
+                            AlertDialog.Builder ad;
+                            ad = new AlertDialog.Builder(getContext());
+                            ad.setTitle("Info");  // заголовок
+                            ad.setMessage("Дата объекта не совпадает с датой устройства"); // сообщение
+                            ad.setPositiveButton("Отобразить состояние объекта", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dateUpdate(stateDateInMs);
+                                    setValues(state);
+                                }
+                            });
+                            ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dialog.cancel();
+                                }
+                            });
+                            ad.setCancelable(true);
+                            ad.show();
+                        }
+                    } else {
+                        // если не нашел текущего состояния
+                    }
+                } else {
+                    // сделать обработку
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
+                Log.i("Request", "error " + t);
+            }
+        });
+    }
+
+    // обновляем дату и время на дату и время объекта
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void dateUpdate(long actualDateInMs){
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat formatHour = new SimpleDateFormat("hh");
+        SimpleDateFormat formatMinute = new SimpleDateFormat("mm");
+        Date actualDate = new Date(actualDateInMs);
+
+        String actualDay = formatDate.format(actualDate);
+        String actualHour = formatHour.format(actualDate);
+        String actualMinute = formatMinute.format(actualDate);
+
+        thisDate = formatDate.format(actualDate);
+        thisTime = formatTime.format(actualDate);
+
+        calendar.setTime(actualDate);
+        mTimePicker.setHour(Integer.parseInt(actualHour));
+        mTimePicker.setMinute(Integer.parseInt(actualMinute));
+
+        lastDay.setText(actualDay);
+    }
+
+    // функция, которая принимаем id и name выбранного пользователем объекта и по этой информации возвращает необходимый объект
+    private JsonElement findElement(String id, String name, JsonArray response) {
+        JsonElement nowElement = null;
+        for (int i = 0; i < response.size(); i++) {
+            // находим необходимый нам объект
+            String newId = response.get(i).getAsJsonObject().get("_id").getAsString();
+            String newName = response.get(i).getAsJsonObject().get("name").getAsString();
+            if ((newId.equals(id)) && (newName.equals(name))) {
+                nowElement = response.get(i);
+                break;
+            }
+        }
+        return nowElement;
+
+    }
+
 
 
 }

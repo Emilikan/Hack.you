@@ -123,6 +123,7 @@ public class Now extends Fragment {
                 if (response.body() != null) {
                     Log.i("Request", response.body().toString());
                     responseConversion(response.body(), response.body().size());
+                    // переписать, чтобы можно было выбирать из toolbar
                     findElement("5c65c98449cc586cdfa0fc26", "Метровагонмаш", response.body());
                 } else {
                     // сделать обработку

@@ -152,11 +152,15 @@ public class MainActivity extends AppCompatActivity {
                 builder.setNegativeButton("Ок", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        title.setText(names.get(mPosition));
+                        if(names.size() > 0) {
+                            title.setText(names.get(mPosition));
 
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        Fragment fragment = new MainFragment();
-                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            Fragment fragment = new MainFragment();
+                            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        } else {
+                            setNamesAndId();
+                        }
                     }
                 });
 

@@ -25,7 +25,7 @@ import com.google.gson.JsonElement;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.security.acl.LastOwnerException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,13 +41,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class History extends Fragment {
-
-    // написать метод получения милисекунд (или микро. Хз, если чесн) из даты и времени
-    // написать метод получения всех времен (или за этот день) и затем поиск ближайшего времени к заданному
-    // все связать
-    // сделать красиво
-    // показ норма 2 времен (и в now)
-    // сделать красиво историю
 
     private TimePicker mTimePicker;
     private TextView lastDay;
@@ -77,9 +70,15 @@ public class History extends Fragment {
     private TextView textViewOffTimeH;
     private TextView textViewOffTimeM;
 
+    private String thisTime;
+    private String thisDate;
+
     private JsonArray crutchJsonArray;
 
     private String id;
+
+    private JsonArray allStateForTime;
+    private ArrayList<Long> allTimeForTime = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,6 +121,9 @@ public class History extends Fragment {
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
 
+        thisDate = setInitialDateTime();
+        thisTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":59";
+
         now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,12 +141,10 @@ public class History extends Fragment {
             }
         });
 
-        long begin = 1552893453841L;
-        long end = 1552893453841L;
         id = "5c65c98449cc586cdfa0fc26"; // написать получение id из SharedPreference
 
 
-        getAllMs("14/05/2019", "22:30:10");
+        //getAllMs("14.05.2019", "22:30:10");
 
 
         if (!isOnline(Objects.requireNonNull(getContext()))) {
@@ -161,16 +161,14 @@ public class History extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            //getResponseEnqueue(id, begin, end);
+            newStateWhenNewDate(thisDate, thisTime);
         }
         //получение времени
         mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                Toast.makeText(getContext(), hourOfDay+" "+minute,
-                        Toast.LENGTH_SHORT).show();
-
+                thisTime = hourOfDay + ":" + minute + ":59";
+                newStateWhenNewTime(thisDate, thisTime);
             }
         });
         return rootView;
@@ -185,19 +183,26 @@ public class History extends Fragment {
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialDateTime();
+            thisDate = setInitialDateTime();
+
+            // для того, чтобы обнулить. На всякий случай
+            allStateForTime = new JsonArray();
+            allTimeForTime = new ArrayList<>();
+
             lastDay.setText(setInitialDateTime());
-            Toast.makeText(getContext(), setInitialDateTime(), Toast.LENGTH_SHORT).show();
-            //newTime();
+            newStateWhenNewDate(thisDate, thisTime);
         }
     };
+
     // для календаря
     private String setInitialDateTime() {
-        return (calendar.get(Calendar.DAY_OF_MONTH)+"."+(calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.YEAR));
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        return df.format(calendar.getTime());
     }
 
     // получаем ответ от сервера. Кст, костыль. Неплохо было бы его переписать
@@ -351,7 +356,7 @@ public class History extends Fragment {
 
     // функция принимает дату и время и отдает милисекунды
     private long getMilisecond(String myDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Date date = null;
         try {
             date = sdf.parse(myDate);
@@ -359,7 +364,6 @@ public class History extends Fragment {
             e.printStackTrace();
         }
         long miliS = date.getTime();
-
         return miliS;
     }
 
@@ -369,7 +373,6 @@ public class History extends Fragment {
         final long thisMs = getMilisecond(thisDate + " " + thisTime);
         final long startMS = getMilisecond(thisDate + " " + "00:00:00");
 
-        final JsonArray mainArray;
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -403,6 +406,8 @@ public class History extends Fragment {
                             String timeStr = response.body().get(i).getAsJsonObject().get("time").getAsString();
                             arrOfAllTimeInDay.add(Long.parseLong(timeStr));
                         }
+                        allStateForTime = response.body();
+                        allTimeForTime = arrOfAllTimeInDay;
                         getNewState(thisMs, arrOfAllTimeInDay, response.body());
                     } else {
                         Toast.makeText(getContext(), "Ответ равен null", Toast.LENGTH_LONG).show();
@@ -420,27 +425,30 @@ public class History extends Fragment {
 
     // определяем ближайшее время и получаем объект
     private void getNewState(long miliS, ArrayList<Long> allDate, JsonArray allState) {
-        Toast.makeText(getContext(), "r", Toast.LENGTH_LONG).show();
         Collections.sort(allDate);
         JsonElement thisState = null;
-        long findTime = allDate.get(0);
-        for (int i = 0; i < allDate.size(); i++) {
-            if (i != 0 && allDate.get(i) <= miliS) {
-                findTime = allDate.get(i);
-            } else if (i != 0 && allDate.get(i) > miliS) {
-                break;
+        try {
+            long findTime = allDate.get(0);
+            for (int i = 0; i < allDate.size(); i++) {
+                if (i != 0 && allDate.get(i) <= miliS) {
+                    findTime = allDate.get(i);
+                } else if (i != 0 && allDate.get(i) > miliS) {
+                    break;
+                }
             }
-        }
 
-        for (int i = 0; i < allState.size(); i++) {
-            if ((allState.get(i).getAsJsonObject().get("time").getAsString()).equals(Long.toString(findTime))) {
-                thisState = allState.get(i);
+            for (int i = 0; i < allState.size(); i++) {
+                if ((allState.get(i).getAsJsonObject().get("time").getAsString()).equals(Long.toString(findTime))) {
+                    thisState = allState.get(i);
+                }
             }
-        }
 
-        if (thisState != null) {
-            setValues(thisState);
-        } else {
+            if (thisState != null) {
+                setValues(thisState);
+            } else {
+                Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
             Toast.makeText(getContext(), "В этот день ничего не найдено. Выберете другой день", Toast.LENGTH_LONG).show();
         }
 
@@ -448,7 +456,7 @@ public class History extends Fragment {
 
     // метод обновления информации на основе новой даты
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void newTime() {
+    private void newStateWhenNewDate(String thisDate, String thisTime) {
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
@@ -463,7 +471,19 @@ public class History extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            // начать преобразоввывать
+            getAllMs(thisDate, thisTime);
+        }
+    }
+
+    // чтобы каждый раз при смене времени не обращаться к серверу
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void newStateWhenNewTime(String thisDate, String thisTime) {
+        long thisMs = getMilisecond(thisDate + " " + thisTime);
+        if(allTimeForTime != null && allStateForTime != null) {
+            getNewState(thisMs, allTimeForTime, allStateForTime);
+        } else {
+            // если вдруг что-то пошло не так
+            newStateWhenNewDate(thisDate, thisTime);
         }
     }
 

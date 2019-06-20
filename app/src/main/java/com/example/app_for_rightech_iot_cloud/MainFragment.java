@@ -64,7 +64,6 @@ public class MainFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.viewpager);
         tabLayout = rootView.findViewById(R.id.tabs);
 
-
         return rootView;
     }
 

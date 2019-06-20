@@ -3,10 +3,12 @@ package com.example.app_for_rightech_iot_cloud;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -76,6 +78,7 @@ public class History extends Fragment {
     private JsonArray crutchJsonArray;
 
     private String id;
+    private String name;
 
     private JsonArray allStateForTime;
     private ArrayList<Long> allTimeForTime = new ArrayList<>();
@@ -120,6 +123,10 @@ public class History extends Fragment {
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        id = preferences.getString("id", null);
+        name = preferences.getString("name", null);
+
         thisDate = setInitialDateTime();
         thisTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":59";
 
@@ -140,8 +147,14 @@ public class History extends Fragment {
             }
         });
 
-        id = "5c65c98449cc586cdfa0fc26"; // написать получение id из SharedPreference
-
+        //получение времени
+        mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                thisTime = hourOfDay + ":" + minute + ":59";
+                newStateWhenNewTime(thisDate, thisTime);
+            }
+        });
 
         if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
@@ -160,14 +173,6 @@ public class History extends Fragment {
             newStateWhenNewDate(thisDate, thisTime);
         }
 
-        //получение времени
-        mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                thisTime = hourOfDay + ":" + minute + ":59";
-                newStateWhenNewTime(thisDate, thisTime);
-            }
-        });
         return rootView;
     }
 
@@ -298,20 +303,30 @@ public class History extends Fragment {
 
     // получаем значение из json
     private String getDataFromJson(JsonElement state, String id) {
-        String result = "null";
-        if (state.getAsJsonObject().get(id) != null) {
-            result = state.getAsJsonObject().get(id).getAsString();
+        String result = "0";
+        try {
+            if (state.getAsJsonObject().get(id) != null) {
+                result = state.getAsJsonObject().get(id).getAsString();
+            }
+        }catch (Exception e){
+            if(getContext() != null) {
+                Toast.makeText(getContext(), "Произошла ошибка. Вероятнее всего у выбранного объекта отсутствуют часть полей", Toast.LENGTH_LONG).show();
+            }
         }
         return result;
     }
 
     // округляем до places знаков после запятой (принимает String значения)
     private static double round(String value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+        try {
+            if (places < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        } catch (Exception e){
+            return 0;
+        }
     }
 
     // возвращает true, если есть подключение к интернету
@@ -342,18 +357,20 @@ public class History extends Fragment {
         long endMs = getMillisecond(thisDate +  " " + "23:59:59");
 
         if (!isOnline(Objects.requireNonNull(getContext()))) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
-            builder.setTitle("Warning")
-                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
-                    .setCancelable(false)
-                    .setNegativeButton("Ок, закрыть",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
+            if(getContext() != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+                builder.setTitle("Warning")
+                        .setMessage("Нет доступа в интернет. Проверьте наличие связи")
+                        .setCancelable(false)
+                        .setNegativeButton("Ок, закрыть",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
         } else {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -469,7 +486,7 @@ public class History extends Fragment {
                 if (response.body() != null) {
                     Log.i("Request", response.body().toString());
                     // переписать, чтобы можно было выбирать из toolbar
-                    JsonElement actualElement = findElement("5c65c98449cc586cdfa0fc26", "Метровагонмаш", response.body());
+                    JsonElement actualElement = findElement(id, name, response.body());
                     if(actualElement != null){
                         final JsonElement state = actualElement.getAsJsonObject().get("state");
                         final long stateDateInMs = Long.parseLong(getDataFromJson(state, "_ts"))/1000;
@@ -479,24 +496,47 @@ public class History extends Fragment {
 
                         if(stateDateInMs < startTimeOfThisDay){
                             // выводим alertDialog с предложением перейти на актуальное время объекта
-                            AlertDialog.Builder ad;
-                            ad = new AlertDialog.Builder(getContext());
-                            ad.setTitle("Info");  // заголовок
-                            ad.setMessage("Дата объекта не совпадает с датой устройства"); // сообщение
-                            ad.setPositiveButton("Отобразить состояние объекта", new DialogInterface.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.M)
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dateUpdate(stateDateInMs);
-                                    setValues(state);
-                                }
-                            });
-                            ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            });
-                            ad.setCancelable(true);
-                            ad.show();
+                            if(getContext() != null) {
+                                AlertDialog.Builder ad;
+                                ad = new AlertDialog.Builder(getContext());
+                                ad.setTitle("Info");  // заголовок
+                                ad.setMessage("Дата объекта не совпадает с датой устройства"); // сообщение
+                                ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.M)
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dateUpdate(stateDateInMs);
+                                        setValues(state);
+                                    }
+                                });
+                                ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                ad.setCancelable(true);
+                                ad.show();
+                            }
+                        } else {
+                            if(getContext() != null) {
+                                AlertDialog.Builder ad;
+                                ad = new AlertDialog.Builder(getContext());
+                                ad.setTitle("Info");  // заголовок
+                                ad.setMessage("В этот день ничего не найдено. Выберете другой день"); // сообщение
+                                ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.M)
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dateUpdate(stateDateInMs);
+                                        setValues(state);
+                                    }
+                                });
+                                ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                ad.setCancelable(true);
+                                ad.show();
+                            }
                         }
                     } else {
                         // если не нашел текущего состояния

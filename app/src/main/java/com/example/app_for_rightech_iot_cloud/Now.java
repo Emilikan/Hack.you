@@ -2,10 +2,12 @@ package com.example.app_for_rightech_iot_cloud;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -24,7 +26,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -44,7 +45,6 @@ public class Now extends Fragment {
     private TextView textViewDensity;
     private TextView textViewLevel;
     private TextView textViewPumpWork;
-    private TextView textViewControl;
     private TextView textViewWorkTime;
     private TextView textViewNotWorkTime;
     private TextView textViewDifference;
@@ -58,7 +58,8 @@ public class Now extends Fragment {
 
     private static final String BASE_URL = "https://rightech.lab.croc.ru/";
 
-    private HashMap<String, String> elements = new HashMap<>();
+    private String id;
+    private String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,12 @@ public class Now extends Fragment {
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
 
-        if(!isOnline(Objects.requireNonNull(getContext()))){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        id = preferences.getString("id", null);
+        name = preferences.getString("name", null);
+
+
+        if (!isOnline(Objects.requireNonNull(getContext()))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle("Warning")
                     .setMessage("Нет доступа в интернет. Проверьте наличие связи")
@@ -123,9 +129,12 @@ public class Now extends Fragment {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if (response.body() != null) {
                     Log.i("Request", response.body().toString());
-                    responseConversion(response.body(), response.body().size());
                     // переписать, чтобы можно было выбирать из toolbar
-                    findElement("5c65c98449cc586cdfa0fc26", "Метровагонмаш", response.body());
+                    if (id != null && name != null) {
+                        findElement(id, name, response.body());
+                    } else {
+                        Toast.makeText(getContext(), "Произошла ошибка. Id и/или имя объекта не найдены", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     // сделать обработку
                 }
@@ -137,19 +146,6 @@ public class Now extends Fragment {
                 Log.i("Request", "error " + t);
             }
         });
-
-
-    }
-
-    // функция, которая принимает на вход массив ответа сервера и добавляет в HashMap всю известную информацию (для дальнейшей возможности смены объектов)
-    private void responseConversion(JsonArray response, int length) {
-        for (int i = 0; i < length; i++) {
-            JsonElement id = response.get(i).getAsJsonObject().get("_id");
-            JsonElement name = response.get(i).getAsJsonObject().get("name");
-
-            elements.put(id.toString(), name.toString());
-        }
-
     }
 
     // функция, которая принимаем id и name выбранного пользователем объекта и по этой информации ищет необходимый объект
@@ -211,7 +207,7 @@ public class Now extends Fragment {
             SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
 
             try {
-                timeObj=Long.parseLong(timeObject);
+                timeObj = Long.parseLong(timeObject);
                 Date dateObj = new Date(timeObj / 1000);
                 textViewNowDate.setText(formatDate.format(dateObj));
                 textViewNowTime.setText(formatTime.format(dateObj));
@@ -222,7 +218,7 @@ public class Now extends Fragment {
             }
 
             try {
-                timePr=Long.parseLong(prevTime);
+                timePr = Long.parseLong(prevTime);
                 Date datePrev = new Date(timePr / 1000);
                 textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
                 textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
@@ -233,7 +229,7 @@ public class Now extends Fragment {
             }
 
             try {
-                timeW=Long.parseLong(workTime);
+                timeW = Long.parseLong(workTime);
                 Date timeWork = new Date(timeW / 1000);
                 textViewWorkTime.setText(workTime);
             } catch (Exception e) {
@@ -242,13 +238,14 @@ public class Now extends Fragment {
             }
 
             try {
-                timeIdle=Long.parseLong(idleTime);
+                timeIdle = Long.parseLong(idleTime);
                 Date timeStop = new Date(timeIdle / 1000);
                 textViewNotWorkTime.setText(idleTime);
             } catch (Exception e) {
                 textViewWorkTime.setText("Null");
                 textViewNotWorkTime.setText("Null");
             }
+
 
             textViewRNTemp.setText(round(tempPh, 2) + " \u2103"); // температура сож
             textViewIndicatorRN.setText(Double.toString(round(ph, 2)));
@@ -270,23 +267,30 @@ public class Now extends Fragment {
     // получаем значение из json
     private String getDataFromJson(JsonElement state, String id) {
         String result = "null";
-        if (state.getAsJsonObject().get(id) != null) {
-            result = state.getAsJsonObject().get(id).getAsString();
+        try {
+            if (state.getAsJsonObject().get(id) != null) {
+                result = state.getAsJsonObject().get(id).getAsString();
+            }
+        } catch (Exception e){
+            Toast.makeText(getContext(), "Вероятнее всего чать или все измерения не найдены", Toast.LENGTH_LONG).show();
         }
         return result;
     }
 
     // округляем до places знаков после запятой (принимает String значения)
     private static double round(String value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+        try {
+            if (places < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        } catch (Exception e){
+            return 0;
+        }
     }
 
-    private static boolean isOnline (Context context)
-    {
+    private static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();

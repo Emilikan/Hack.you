@@ -1,14 +1,15 @@
 package com.example.app_for_rightech_iot_cloud;
 
-import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,27 +20,44 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
 import java.util.ArrayList;
-import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-    ArrayList<String> factories;
+    private ArrayList<String> names;
+    private ArrayList<String> ids;
+
+    private String nameOfTitle;
+
+    private static final String BASE_URL = "https://rightech.lab.croc.ru/";
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        factories = new ArrayList<>();
-        factories.add("Метровагонмаш");
-        factories.add("что-то");
-        factories.add("fffff");
+        names = new ArrayList<>();
+        ids = new ArrayList<>();
+
         final TextView title = findViewById(R.id.title);
         final ImageView leftButton = findViewById(R.id.notific);
         final ImageView rightButton = findViewById(R.id.neuronet);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        nameOfTitle = preferences.getString("name", "Выберите завод (установку)");
+
+        setNamesAndId();
+
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     leftButton.setImageResource(R.drawable.notification);
                     rightButton.setImageResource(R.drawable.artificial_intelligence);
-                    title.setText("Метровагонмаш");
+                    title.setText(nameOfTitle);
                 }
                 else {
                     if (title.getText() == "Нейросеть") {
@@ -59,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         leftButton.setImageResource(R.drawable.notification);
                         rightButton.setImageResource(R.drawable.artificial_intelligence);
 
-                        title.setText("Метровагонмаш");
+                        title.setText(nameOfTitle);
                     }
                 else{
                     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -108,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setCancelable(true);
                 Spinner spinner = view.findViewById(R.id.spinner);
                 ArrayAdapter<?> adapter =
-                        new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, factories);
+                        new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, names);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setGravity(Gravity.CENTER);
                 spinner.setAdapter(adapter);
@@ -126,8 +145,16 @@ public class MainActivity extends AppCompatActivity {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        title.setText(factories.get(position));
+                        title.setText(names.get(position));
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("id", ids.get(position));
+                        editor.putString("name", names.get(position));
+                        editor.apply();
 
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = new MainFragment();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     }
 
                     @Override
@@ -146,27 +173,45 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 
+    // получаем все объекты, затем помещаем их имена в toolbar
+    private void setNamesAndId(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiGetAllObjects apiGetAllObjects = retrofit.create(ApiGetAllObjects.class);
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        apiGetAllObjects.allObjects().enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.body() != null) {
+                    Log.i("Request", response.body().toString());
+                    responseConversion(response.body(), response.body().size());
+
+                } else {
+                    // сделать обработку
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "error " + t, Toast.LENGTH_SHORT).show();
+                Log.i("Request", "error " + t);
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_notification) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = new Notifications();
-            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-            getSupportActionBar().setTitle("Уведомления");
-        } else if (item.getItemId() == R.id.action_ai) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = new Neuronet();
-            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-            getSupportActionBar().setTitle("Нейросеть");
+    // функция, которая принимает на вход массив ответа сервера и добавляет в ArrayList id и name объектов (для дальнейшей возможности смены объектов)
+    private void responseConversion(JsonArray response, int length) {
+        for (int i = 0; i < length; i++) {
+            JsonElement id = response.get(i).getAsJsonObject().get("_id");
+            JsonElement name = response.get(i).getAsJsonObject().get("name");
+
+            names.add(name.getAsString());
+            ids.add(id.getAsString());
         }
-        return true;
-    }*/
+
+    }
+
 }

@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="731dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#ed1a3a"
         android:gravity="center"
         android:orientation="vertical"
@@ -47,6 +47,8 @@
             android:layout_marginTop="35dp"
             android:background="@drawable/input_primary"
             android:ems="10"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:fontFamily="@font/rubik"
             android:hint="Логин"
             android:inputType="textEmailAddress"
@@ -62,6 +64,8 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/input_primary"
             android:ems="10"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:fontFamily="@font/rubik"
             android:hint="Пароль"
             android:inputType="textPassword"
@@ -83,7 +87,6 @@
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
     </LinearLayout>
 

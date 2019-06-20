@@ -1,5 +1,6 @@
 package com.example.app_for_rightech_iot_cloud;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String BASE_URL = "https://rightech.lab.croc.ru/";
 
+    private TextView title;
+
+    private int mPosition;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,12 +54,13 @@ public class MainActivity extends AppCompatActivity {
         names = new ArrayList<>();
         ids = new ArrayList<>();
 
-        final TextView title = findViewById(R.id.title);
+        title = findViewById(R.id.title);
         final ImageView leftButton = findViewById(R.id.notific);
         final ImageView rightButton = findViewById(R.id.neuronet);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         nameOfTitle = preferences.getString("name", "Выберите завод (установку)");
+        title.setText(nameOfTitle);
 
         setNamesAndId();
 
@@ -130,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int p;
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.alert, null);
                 builder.setView(view);
@@ -141,20 +149,27 @@ public class MainActivity extends AppCompatActivity {
                 spinner.setGravity(Gravity.CENTER);
                 spinner.setAdapter(adapter);
 
+                builder.setNegativeButton("Ок", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        title.setText(names.get(mPosition));
+
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = new MainFragment();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    }
+                });
+
                 final AlertDialog dialog = builder.create();
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        title.setText(names.get(position));
+                        mPosition = position;
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("id", ids.get(position));
                         editor.putString("name", names.get(position));
                         editor.apply();
-
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        Fragment fragment = new MainFragment();
-                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     }
 
                     @Override
@@ -190,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     responseConversion(response.body(), response.body().size());
 
                 } else {
-                    // сделать обработку
+                    Toast.makeText(MainActivity.this, "Нет ответа от сервера", Toast.LENGTH_LONG).show();
                 }
             }
 

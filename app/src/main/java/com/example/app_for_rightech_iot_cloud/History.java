@@ -392,7 +392,7 @@ public class History extends Fragment {
                         allTimeForTime = arrOfAllTimeInDay;
                         getNewState(thisDate, thisMs, arrOfAllTimeInDay, response.body());
                     } else {
-                        Toast.makeText(getContext(), "Ответ равен null", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Нет ответа от сервера", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -539,10 +539,10 @@ public class History extends Fragment {
                             }
                         }
                     } else {
-                        // если не нашел текущего состояния
+                        Toast.makeText(getContext(), "Неправильный ответ сервера", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    // сделать обработку
+                    Toast.makeText(getContext(), "Нет ответа от сервера", Toast.LENGTH_LONG).show();
                 }
             }
 

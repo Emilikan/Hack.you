@@ -11,11 +11,14 @@ public class Enter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
-        try {
+        /**
+         * Закоменчено Эмилем, т.к. бесит постоянно ждать загрузки. Да, кст, загрузка, я думаю, должна делаться через что-то другое
+         */
+        /*try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             e.getMessage();
-        }
+        }*/
         Intent intent = new Intent(Enter.this, LoginActivity.class);
         intent.putExtra("PARAM", 1);
         startActivity(intent);

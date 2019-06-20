@@ -136,7 +136,7 @@ public class Now extends Fragment {
                         Toast.makeText(getContext(), "Произошла ошибка. Id и/или имя объекта не найдены", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    // сделать обработку
+                    Toast.makeText(getContext(), "Нет ответа от сервера", Toast.LENGTH_LONG).show();
                 }
             }
 

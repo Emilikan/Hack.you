@@ -1,8 +1,13 @@
 package com.example.app_for_rightech_iot_cloud;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +19,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainFragment extends Fragment {
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -56,13 +62,23 @@ public class MainFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        viewPager = rootView.findViewById(R.id.viewpager);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         tabLayout = rootView.findViewById(R.id.tabs);
+        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+            rootView.findViewById(R.id.tabs).setBackgroundColor(Color.parseColor("#18191D"));
+            tabLayout.setTabTextColors(Color.parseColor("#E9E9E9"),Color.parseColor("#E9E9E9"));
+        }
+        else{
+            tabLayout.setTabTextColors(Color.parseColor("#000000"),Color.parseColor("#000000"));
+            rootView.findViewById(R.id.tabs).setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+        viewPager = rootView.findViewById(R.id.viewpager);
+
 
 
         return rootView;

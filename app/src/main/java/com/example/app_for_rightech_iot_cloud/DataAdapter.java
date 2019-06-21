@@ -20,7 +20,6 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         this.notifications = notifications;
         this.inflater = LayoutInflater.from(context);
     }
-
     @NonNull
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

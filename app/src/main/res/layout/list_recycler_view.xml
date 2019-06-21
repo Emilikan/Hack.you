@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/recLayout"
     android:orientation="vertical"
     android:background="@drawable/recycler_view_frame"
     android:padding="16dp">

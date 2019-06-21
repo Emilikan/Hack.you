@@ -25,9 +25,7 @@ public class Notifications extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_notifications, container, false);
         setInitialData();
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list);
-        // создаем адаптер
         DataAdapter adapter = new DataAdapter(getContext(), notifications);
-        // устанавливаем для списка адаптер
         recyclerView.setAdapter(adapter);
         return rootView;
     }

@@ -48,7 +48,12 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="6dp"
                         android:gravity="center"
+<<<<<<< HEAD
                         android:text="14.05.2019"
+=======
+                        android:text="00:00:0000"
+                        android:textColor="#000000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                         android:textSize="30sp"
                         android:textStyle="bold"
                         app:fontFamily="@font/roboto"
@@ -80,7 +85,12 @@
                         android:layout_marginEnd="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center"
+<<<<<<< HEAD
                         android:text="22:27:50"
+=======
+                        android:text="00:00:00"
+                        android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                         android:textSize="36sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/textView15"
@@ -128,24 +138,30 @@
                             android:gravity="center"
                             android:text="Температура СОЖ"
                             android:textSize="12sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_temperature"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_temperature" />
 
                         <TextView
                             android:id="@+id/text_view_temperature"
                             android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:layout_height="80dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="28 °C"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -186,15 +202,20 @@
                         <TextView
                             android:id="@+id/text_view_rN"
                             android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:layout_height="80dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="8.3"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -215,7 +236,12 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="31.42 °C"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView25"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -283,15 +309,20 @@
                         <TextView
                             android:id="@+id/text_view_density"
                             android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:layout_height="80dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="7.84%"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="24sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -331,15 +362,20 @@
                         <TextView
                             android:id="@+id/text_view_level"
                             android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:layout_height="80dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="0.49м"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="24sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView20"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView3"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -394,7 +430,12 @@
                         android:layout_width="75dp"
                         android:layout_height="50dp"
                         android:gravity="center"
+<<<<<<< HEAD
                         android:text="нет"
+=======
+                        android:text=""
+                        android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                         android:textSize="30sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -415,10 +456,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="95dp"
                 android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
                 android:layout_marginTop="7dp"
-                android:layout_height="75dp">
+                android:layout_marginRight="7dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
@@ -433,16 +474,21 @@
                         <TextView
                             android:id="@+id/text_view_work_time"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="70dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="7:04:09:56"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="24sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView28"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/textView28"
@@ -450,11 +496,15 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время работы"
+<<<<<<< HEAD
+=======
+                            android:textColor="#000"
+                            app:fontFamily="@font/roboto"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_work_time"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_work_time" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -471,16 +521,21 @@
                         <TextView
                             android:id="@+id/text_view_notWork_time"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="70dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="19:56:09:11"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="18sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView31"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/textView31"
@@ -488,11 +543,15 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время простоя"
+<<<<<<< HEAD
+=======
+                            android:textColor="#000"
+                            app:fontFamily="@font/roboto"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -509,16 +568,21 @@
                         <TextView
                             android:id="@+id/text_view_difference"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="70dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="00:00:02"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="24sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView32"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/textView32"
@@ -526,11 +590,15 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Разница"
+<<<<<<< HEAD
+=======
+                            android:textColor="#000"
+                            app:fontFamily="@font/roboto"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_difference"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_difference" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -538,9 +606,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="75dp"
                 android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_height="75dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="7dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="115dp"
@@ -558,26 +627,37 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="12:45:02"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/text_view_fix_date"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_fix_date"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="Время фиксации(12:34:02)"
+=======
+                            android:text="Время фиксации()"
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="10sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_fix_time"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_fix_time" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -596,11 +676,11 @@
                             android:layout_width="0dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
-                            app:svg="@raw/pump_work"
                             app:layout_constraintBottom_toTopOf="@+id/textView36"
                             app:layout_constraintEnd_toStartOf="@+id/text_view_workReset"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:svg="@raw/pump_work" />
 
                         <TextView
                             android:id="@+id/textView36"
@@ -608,23 +688,32 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="workreset"
+<<<<<<< HEAD
+=======
+                            android:textColor="#000"
+                            app:fontFamily="@font/roboto"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_workReset"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_workReset" />
 
                         <TextView
                             android:id="@+id/text_view_workReset"
                             android:layout_width="75dp"
                             android:layout_height="50dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="нет"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
+                            app:fontFamily="@font/roboto"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView6"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/roboto"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
@@ -662,7 +751,12 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="6 ч"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView39"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -701,7 +795,12 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="20 мин"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView37"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -758,7 +857,12 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="5 ч"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView42"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -797,7 +901,12 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
+<<<<<<< HEAD
                             android:text="20 мин"
+=======
+                            android:text=""
+                            android:textColor="#000"
+>>>>>>> a54461eabd733f2979c3d1ea5193081ab42422ec
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView43"
                             app:layout_constraintEnd_toEndOf="parent"

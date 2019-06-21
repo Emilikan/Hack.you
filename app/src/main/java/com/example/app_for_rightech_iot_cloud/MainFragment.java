@@ -31,9 +31,16 @@ public class MainFragment extends Fragment {
             super(fragmentManager);
         }
 
+        public int currentIndex;
+
         @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
+        public Fragment getItem(int position)
+        {
+            if(position == currentIndex){
+                return new Now();
+            } else {
+                return new History();
+            }
         }
 
         @Override
@@ -80,6 +87,7 @@ public class MainFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.viewpager);
 
 
+        viewPager.setCurrentItem(0);
 
         return rootView;
     }
@@ -110,6 +118,8 @@ public class MainFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+
+        viewPagerAdapter.currentIndex = 0;
 
         viewPagerAdapter.addFragment(new Now(), "Состояние");
         viewPagerAdapter.addFragment(new History(), "История");

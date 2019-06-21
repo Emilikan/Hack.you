@@ -9,14 +9,16 @@ import java.util.concurrent.TimeUnit;
 public class Enter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        try {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_enter);
-            TimeUnit.SECONDS.sleep(10);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_enter);
+        /**
+         * Закоменчено Эмилем, т.к. бесит постоянно ждать загрузки. Да, кст, загрузка, я думаю, должна делаться через что-то другое
+         */
+        /*try {
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            e.getMessage();
+        }*/
         Intent intent = new Intent(Enter.this, LoginActivity.class);
         intent.putExtra("PARAM", 1);
         startActivity(intent);

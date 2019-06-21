@@ -1,6 +1,5 @@
 package com.example.app_for_rightech_iot_cloud;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -28,6 +26,10 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     ArrayList<String> factories;
+    int leftArrow;
+    int notification;
+    int artificialIntelligence;
+    int settings;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,30 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         final TextView title = findViewById(R.id.title);
+        final ImageView leftButton = findViewById(R.id.notific);
+        final ImageView rightButton = findViewById(R.id.settings);
+
         if (Objects.equals(preferences.getString("theme", "light"), "dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));
             title.setTextColor(Color.parseColor("#E9E9E9"));
+            leftArrow = R.drawable.left_arrow_white;
+            notification = R.drawable.notification_white;
+            artificialIntelligence = R.drawable.artifical_intelligence_white;
+            settings = R.drawable.settings_white;
+            leftButton.setImageResource(notification);
+            rightButton.setImageResource(settings);
         }
         else{
             setTheme(R.style.AppTheme);
             findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#ffffff"));
             title.setTextColor(Color.parseColor("#000000"));
+            leftArrow = R.drawable.left_arrow;
+            notification = R.drawable.notification;
+            artificialIntelligence = R.drawable.artificial_intelligence;
+            settings = R.drawable.settings;
+            leftButton.setImageResource(notification);
+            rightButton.setImageResource(settings);
         }
 
         toolbar = findViewById(R.id.toolbar);
@@ -54,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         factories.add("что-то");
         factories.add("fffff");
 
-        final ImageView leftButton = findViewById(R.id.notific);
-        final ImageView rightButton = findViewById(R.id.settings);
+
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new MainFragment();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.notification);
-                    rightButton.setImageResource(R.drawable.settings);
+                    leftButton.setImageResource(notification);
+                    rightButton.setImageResource(settings);
                     title.setText("Метровагонмаш");
                 }
                 else {
@@ -72,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new MainFragment();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.notification);
-                        rightButton.setImageResource(R.drawable.settings);
+                        leftButton.setImageResource(notification);
+                        rightButton.setImageResource(settings);
 
                         title.setText("Метровагонмаш");
                     }
@@ -81,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Notifications();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.left_arrow);
-                    rightButton.setImageResource(R.drawable.settings);
+                    leftButton.setImageResource(leftArrow);
+                    rightButton.setImageResource(settings);
 
                     title.setText("Уведомления");
                 }
@@ -97,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Settings();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.left_arrow);
-                    rightButton.setImageResource(R.drawable.notification);
+                    leftButton.setImageResource(leftArrow);
+                    rightButton.setImageResource(notification);
 
                     title.setText("Настройки");
                 }
@@ -107,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Notifications();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.left_arrow);
-                        rightButton.setImageResource(R.drawable.settings);
+                        leftButton.setImageResource(leftArrow);
+                        rightButton.setImageResource(settings);
 
                         title.setText("Уведомления");
                     }
@@ -116,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Settings();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.left_arrow);
-                        rightButton.setImageResource(R.drawable.notification);
+                        leftButton.setImageResource(leftArrow);
+                        rightButton.setImageResource(notification);
 
                         title.setText("Настройки");
                     }

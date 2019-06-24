@@ -101,7 +101,6 @@ public class History extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        final SharedPreferences.Editor editor = preferences.edit();
         now = rootView.findViewById(R.id.now);
         lastDay = rootView.findViewById(R.id.lastDay);
         if (Objects.equals(preferences.getString("theme", "light"), "dark")){
@@ -533,6 +532,7 @@ public class History extends Fragment {
         ApiGetAllObjects apiGetAllObjects = retrofit.create(ApiGetAllObjects.class);
 
         apiGetAllObjects.allObjects().enqueue(new Callback<JsonArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if (response.body() != null) {
@@ -544,51 +544,77 @@ public class History extends Fragment {
                         final long stateDateInMs = Long.parseLong(getDataFromJson(state, "_ts"))/1000;
                         long startTimeOfThisDay = getMillisecond(thisDate + " " + "00:00:00");
                         Log.i("FFF", startTimeOfThisDay + ", " + stateDateInMs);
-                        // если дата объекта не совпадает с текущей, то говорим об этом пользователю
+                        // если дата объекта не совпадает с текущей, то говорим об этом пользователю (при этом говорим только 1 раз и запоминаем выбор пользователя)
 
-                        if(stateDateInMs < startTimeOfThisDay){
-                            // выводим alertDialog с предложением перейти на актуальное время объекта
-                            if(getContext() != null) {
-                                AlertDialog.Builder ad;
-                                ad = new AlertDialog.Builder(getContext());
-                                ad.setTitle("Info");  // заголовок
-                                ad.setMessage("Дата объекта не совпадает с датой устройства"); // сообщение
-                                ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
-                                    @RequiresApi(api = Build.VERSION_CODES.M)
-                                    public void onClick(DialogInterface dialog, int arg1) {
-                                        dateUpdate(stateDateInMs);
-                                        setValues(state);
-                                    }
-                                });
-                                ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int arg1) {
-                                        dialog.cancel();
-                                    }
-                                });
-                                ad.setCancelable(true);
-                                ad.show();
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        String showAlert = preferences.getString("showAlert", null);
+                        if(showAlert == null) {
+                            if (stateDateInMs < startTimeOfThisDay) {
+                                // выводим alertDialog с предложением перейти на актуальное время объекта
+                                if (getContext() != null) {
+                                    AlertDialog.Builder ad;
+                                    ad = new AlertDialog.Builder(getContext());
+                                    ad.setTitle("Info");  // заголовок
+                                    ad.setMessage("Дата объекта не совпадает с датой устройства"); // сообщение
+                                    ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.M)
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dateUpdate(stateDateInMs);
+                                            setValues(state);
+                                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            editor.putString("showAlert", "true");
+                                            editor.apply();
+                                        }
+                                    });
+                                    ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.cancel();
+                                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            editor.putString("showAlert", "false");
+                                            editor.apply();
+                                        }
+                                    });
+                                    ad.setCancelable(true);
+                                    ad.show();
+                                }
+                            } else {
+                                if (getContext() != null) {
+                                    AlertDialog.Builder ad;
+                                    ad = new AlertDialog.Builder(getContext());
+                                    ad.setTitle("Info");  // заголовок
+                                    ad.setMessage("В этот день ничего не найдено. Выберете другой день"); // сообщение
+                                    ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.M)
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dateUpdate(stateDateInMs);
+                                            setValues(state);
+                                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            editor.putString("showAlert", "true");
+                                            editor.apply();
+                                        }
+                                    });
+                                    ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.cancel();
+                                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            editor.putString("showAlert", "false");
+                                            editor.apply();
+                                        }
+                                    });
+                                    ad.setCancelable(true);
+                                    ad.show();
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putString("showAlert", null);
+                                    editor.apply();
+                                }
                             }
-                        } else {
-                            if(getContext() != null) {
-                                AlertDialog.Builder ad;
-                                ad = new AlertDialog.Builder(getContext());
-                                ad.setTitle("Info");  // заголовок
-                                ad.setMessage("В этот день ничего не найдено. Выберете другой день"); // сообщение
-                                ad.setPositiveButton("Отобразить текущее состояние объекта", new DialogInterface.OnClickListener() {
-                                    @RequiresApi(api = Build.VERSION_CODES.M)
-                                    public void onClick(DialogInterface dialog, int arg1) {
-                                        dateUpdate(stateDateInMs);
-                                        setValues(state);
-                                    }
-                                });
-                                ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int arg1) {
-                                        dialog.cancel();
-                                    }
-                                });
-                                ad.setCancelable(true);
-                                ad.show();
-                            }
+                        } else if(showAlert.equals("true")){
+                            dateUpdate(stateDateInMs);
+                            setValues(state);
                         }
                     } else {
                         Toast.makeText(getContext(), "Неправильный ответ сервера", Toast.LENGTH_LONG).show();

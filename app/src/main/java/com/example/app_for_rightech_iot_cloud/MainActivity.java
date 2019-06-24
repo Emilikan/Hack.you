@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         final ImageView leftButton = findViewById(R.id.notific);
         final ImageView rightButton = findViewById(R.id.settings);
 
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("showAlert", null);
+        editor.apply();
+
         if (Objects.equals(preferences.getString("theme", "light"), "dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));

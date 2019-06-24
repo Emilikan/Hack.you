@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="375dp"
+    android:id="@+id/basicLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Now">
@@ -23,7 +24,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="70dp"
                 android:text="Параметры"
-                android:textColor="#000"
                 android:textStyle="bold"
                 app:fontFamily="@font/roboto" />
 
@@ -36,9 +36,11 @@
                 android:layout_marginRight="7dp">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/frame">
+                    android:background="@drawable/frame"
+                    >
 
                     <TextView
                         android:id="@+id/text_view_date"
@@ -47,7 +49,6 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center"
                         android:text="00:00:0000"
-                        android:textColor="#000000"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         app:fontFamily="@font/roboto"
@@ -65,7 +66,6 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
                         android:text="Время объекта"
-                        android:textColor="#000"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/text_view_time"
@@ -81,7 +81,6 @@
                         android:layout_marginRight="1dp"
                         android:gravity="center"
                         android:text="00:00:00"
-                        android:textColor="#000"
                         android:textSize="36sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/textView15"
@@ -105,6 +104,7 @@
                     android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/frame">
@@ -127,7 +127,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Температура СОЖ"
-                            android:textColor="#000"
                             android:textSize="12sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -143,7 +142,6 @@
                             android:layout_height="80dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView17"
@@ -159,6 +157,7 @@
                     android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/frame">
@@ -180,7 +179,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Показатель рН"
-                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +191,6 @@
                             android:layout_height="80dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView18"
@@ -209,6 +206,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -220,7 +218,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView25"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -234,7 +231,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Температура СОЖ"
-                            android:textColor="#000"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -257,6 +253,7 @@
                     android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/frame">
@@ -278,7 +275,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Концентрация эмульсии"
-                            android:textColor="#000"
                             android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -292,7 +288,6 @@
                             android:layout_height="80dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="24sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView19"
@@ -307,6 +302,7 @@
                     android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -328,7 +324,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Уровень СОЖ"
-                            android:textColor="#000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -341,7 +336,6 @@
                             android:layout_height="80dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="24sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView20"
@@ -359,7 +353,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Насос"
-                android:textColor="#000"
                 android:textStyle="bold"
                 app:fontFamily="@font/roboto" />
             <android.support.v7.widget.CardView
@@ -369,8 +362,9 @@
                 android:layout_height="match_parent">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint7"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/frame">
 
                     <com.caverock.androidsvg.SVGImageView
@@ -390,7 +384,6 @@
                         android:layout_height="25dp"
                         android:gravity="center"
                         android:text="Насос работает (reg)"
-                        android:textColor="#000"
                         android:textSize="10sp"
                         app:fontFamily="@font/roboto"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -404,7 +397,6 @@
                         android:layout_height="50dp"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="#000"
                         android:textSize="30sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -420,7 +412,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Параметры"
-                android:textColor="#000"
                 android:textStyle="bold"
                 app:fontFamily="@font/roboto"/>
 
@@ -436,6 +427,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint8"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -447,7 +439,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="24sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView28"
@@ -461,7 +452,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время работы"
-                            android:textColor="#000"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -475,6 +465,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint9"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -486,7 +477,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="18sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView31"
@@ -500,7 +490,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время простоя"
-                            android:textColor="#000"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -514,6 +503,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint10"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -525,7 +515,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="24sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/textView32"
@@ -539,7 +528,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Разница"
-                            android:textColor="#000"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -562,6 +550,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -573,7 +562,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toTopOf="@+id/text_view_fix_date"
@@ -588,7 +576,6 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время фиксации()"
-                            android:textColor="#000"
                             android:textSize="10sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -603,6 +590,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint12"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -624,7 +612,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="workreset"
-                            android:textColor="#000"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -637,7 +624,6 @@
                             android:layout_height="50dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:fontFamily="@font/roboto"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -654,7 +640,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Время включения"
-                android:textColor="#000"
                 android:textStyle="bold"
                 app:fontFamily="@font/roboto"/>
 
@@ -670,6 +655,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint13"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -681,7 +667,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView39"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -695,7 +680,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время включения(часы)"
-                            android:textColor="#000"
                             android:textSize="9sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -710,6 +694,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -721,7 +706,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView37"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -735,7 +719,6 @@
                             android:layout_height="25dp"
                             android:gravity="center"
                             android:text="Время включения(мин)"
-                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -752,7 +735,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Время выключения"
-                android:textColor="#000"
                 android:textStyle="bold"
                 app:fontFamily="@font/roboto"/>
 
@@ -769,6 +751,7 @@
                     android:background="@drawable/frame">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint15"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -780,7 +763,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView42"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -794,7 +776,6 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время выключения(часы)"
-                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -809,6 +790,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraint16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
@@ -820,7 +802,6 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="#000"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toTopOf="@+id/textView43"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -834,7 +815,6 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:text="Время выключения(мин)"
-                            android:textColor="#000"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

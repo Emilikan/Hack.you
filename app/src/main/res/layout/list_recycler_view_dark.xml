@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/recLayout"
     android:orientation="vertical"
-    android:background="@drawable/recycler_view_frame"
+    android:background="@drawable/dark_recycler_view_frame"
     android:padding="16dp">
 
 
@@ -29,7 +29,7 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="42.2 C"
-            android:textColor="#000"
+            android:textColor="#E9E9E9"
             android:textSize="28sp"
             app:fontFamily="@font/roboto"/>
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="Температура СОЖ"
-        android:textColor="#000"
+        android:textColor="#E9E9E9"
         app:fontFamily="@font/roboto" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_height="40dp"
         android:gravity="right"
         android:text="(14.05.2019)12:34:03"
-        android:textColor="#000"
+        android:textColor="#E9E9E9"
         app:fontFamily="@font/roboto" />
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.app_for_rightech_iot_cloud;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -72,6 +73,47 @@ public class Now extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+            rootView.findViewById(R.id.basicLayout).setBackgroundColor(Color.parseColor("#18191D"));
+            rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint2).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint3).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint4).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint5).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint6).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint7).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint16).setBackgroundResource(R.drawable.dark_frame);
+        }
+        else{
+            rootView.findViewById(R.id.basicLayout).setBackgroundColor(Color.parseColor("#ffffff"));
+            rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint2).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint3).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint4).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint5).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint6).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint7).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint16).setBackgroundResource(R.drawable.frame);
+        }
+
+
         textViewNowDate = rootView.findViewById(R.id.text_view_date);
         textViewNowTime = rootView.findViewById(R.id.text_view_time);
         textViewRNTemp = rootView.findViewById(R.id.text_view_temperature);
@@ -91,7 +133,6 @@ public class Now extends Fragment {
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         id = preferences.getString("id", null);
         name = preferences.getString("name", null);
 

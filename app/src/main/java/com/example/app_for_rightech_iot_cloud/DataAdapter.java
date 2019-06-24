@@ -1,7 +1,12 @@
 package com.example.app_for_rightech_iot_cloud;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +15,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
+    private Context context;
     private List<NotificationsForRecycler> notifications;
 
     DataAdapter(Context context, List<NotificationsForRecycler> notifications) {
         this.notifications = notifications;
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @NonNull
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+            View view = inflater.inflate(R.layout.list_recycler_view_dark, parent, false);
+            return new ViewHolder(view);
+        }
+        else{
+            View view = inflater.inflate(R.layout.list_recycler_view, parent, false);
+            return new ViewHolder(view);
+        }
 
-        View view = inflater.inflate(R.layout.list_recycler_view, parent, false);
-        return new ViewHolder(view);
     }
 
     @Override

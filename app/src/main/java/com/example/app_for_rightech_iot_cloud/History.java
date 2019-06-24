@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -19,12 +21,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -93,15 +98,63 @@ public class History extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
+
+        final View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final SharedPreferences.Editor editor = preferences.edit();
+        now = rootView.findViewById(R.id.now);
+        lastDay = rootView.findViewById(R.id.lastDay);
+        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+            lastDay.setTextColor(Color.parseColor("#3CC1D4"));
+            now.setTextColor(Color.parseColor("#3CC1D4"));
+            rootView.findViewById(R.id.container).setBackgroundColor(Color.parseColor("#18191D"));
+            rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint2).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint3).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint4).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint5).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint6).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint7).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.dark_frame);
+            rootView.findViewById(R.id.constraint16).setBackgroundResource(R.drawable.dark_frame);
+
+        }
+        else{
+            lastDay.setTextColor(Color.parseColor("#FF0000FF"));
+            now.setTextColor(Color.parseColor("#FF0000FF"));
+            rootView.findViewById(R.id.container).setBackgroundColor(Color.parseColor("#ffffff"));
+            rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint2).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint3).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint4).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint5).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint6).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint7).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.frame);
+            rootView.findViewById(R.id.constraint16).setBackgroundResource(R.drawable.frame);
+        }
+
 
         mTimePicker = rootView.findViewById(R.id.timePicker);
 
         mTimePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         mTimePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
         mTimePicker.setIs24HourView(true);
-        now = rootView.findViewById(R.id.now);
-        lastDay = rootView.findViewById(R.id.lastDay);
+
         lastDay.setText(setInitialDateTime());
 
         textViewNowDate = rootView.findViewById(R.id.text_view_date);
@@ -123,7 +176,6 @@ public class History extends Fragment {
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
         textViewOffTimeM = rootView.findViewById(R.id.text_view_off_timeM);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         id = preferences.getString("id", null);
         name = preferences.getString("name", null);
 

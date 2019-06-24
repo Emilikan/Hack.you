@@ -1,7 +1,8 @@
 package com.example.app_for_rightech_iot_cloud;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
@@ -25,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +35,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    int leftArrow;
+    int notification;
+    int artificialIntelligence;
+    int settings;
     private ArrayList<String> names;
     private ArrayList<String> ids;
 
@@ -49,16 +55,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         setContentView(R.layout.activity_main);
+        final TextView title = findViewById(R.id.title);
+        final ImageView leftButton = findViewById(R.id.notific);
+        final ImageView rightButton = findViewById(R.id.settings);
+
+        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+            setTheme(R.style.DarkTheme);
+            findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));
+            title.setTextColor(Color.parseColor("#E9E9E9"));
+            leftArrow = R.drawable.left_arrow_white;
+            notification = R.drawable.notification_white;
+            artificialIntelligence = R.drawable.artifical_intelligence_white;
+            settings = R.drawable.settings_white;
+            leftButton.setImageResource(notification);
+            rightButton.setImageResource(settings);
+        }
+        else{
+            setTheme(R.style.AppTheme);
+            findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#ffffff"));
+            title.setTextColor(Color.parseColor("#000000"));
+            leftArrow = R.drawable.left_arrow;
+            notification = R.drawable.notification;
+            artificialIntelligence = R.drawable.artificial_intelligence;
+            settings = R.drawable.settings;
+            leftButton.setImageResource(notification);
+            rightButton.setImageResource(settings);
+        }
 
         names = new ArrayList<>();
         ids = new ArrayList<>();
-
-        title = findViewById(R.id.title);
-        final ImageView leftButton = findViewById(R.id.notific);
-        final ImageView rightButton = findViewById(R.id.neuronet);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         nameOfTitle = preferences.getString("name", "Выберите завод (установку)");
         title.setText(nameOfTitle);
 
@@ -71,17 +99,17 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new MainFragment();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.notification);
-                    rightButton.setImageResource(R.drawable.artificial_intelligence);
+                    leftButton.setImageResource(notification);
+                    rightButton.setImageResource(settings);
                     title.setText(nameOfTitle);
                 }
                 else {
-                    if (title.getText() == "Нейросеть") {
+                    if (title.getText() == "Настройки") {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new MainFragment();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.notification);
-                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+                        leftButton.setImageResource(notification);
+                        rightButton.setImageResource(settings);
 
                         title.setText(nameOfTitle);
                     }
@@ -89,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Notifications();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.left_arrow);
-                    rightButton.setImageResource(R.drawable.artificial_intelligence);
+                    leftButton.setImageResource(leftArrow);
+                    rightButton.setImageResource(settings);
 
                     title.setText("Уведомления");
                 }
@@ -103,31 +131,31 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (title.getText() == "Уведомления"){
                     FragmentManager fragmentManager = getSupportFragmentManager();
-                    Fragment fragment = new Neuronet();
+                    Fragment fragment = new Settings();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(R.drawable.left_arrow);
-                    rightButton.setImageResource(R.drawable.notification);
+                    leftButton.setImageResource(leftArrow);
+                    rightButton.setImageResource(notification);
 
-                    title.setText("Нейросеть");
+                    title.setText("Настройки");
                 }
                 else {
-                    if (title.getText() == "Нейросеть") {
+                    if (title.getText() == "Настройки") {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         Fragment fragment = new Notifications();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.left_arrow);
-                        rightButton.setImageResource(R.drawable.artificial_intelligence);
+                        leftButton.setImageResource(leftArrow);
+                        rightButton.setImageResource(settings);
 
                         title.setText("Уведомления");
                     }
                     else{
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        Fragment fragment = new Neuronet();
+                        Fragment fragment = new Settings();
                         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        leftButton.setImageResource(R.drawable.left_arrow);
-                        rightButton.setImageResource(R.drawable.notification);
+                        leftButton.setImageResource(leftArrow);
+                        rightButton.setImageResource(notification);
 
-                        title.setText("Нейросеть");
+                        title.setText("Настройки");
                     }
                 }
             }

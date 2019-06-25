@@ -36,7 +36,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class Now extends Fragment {
     private TextView textViewNowDate;
     private TextView textViewNowTime;
@@ -68,13 +67,13 @@ public class Now extends Fragment {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             rootView.findViewById(R.id.basicLayout).setBackgroundColor(Color.parseColor("#18191D"));
             rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint2).setBackgroundResource(R.drawable.dark_frame);
@@ -137,8 +136,8 @@ public class Now extends Fragment {
         name = preferences.getString("name", null);
 
 
-        if (!isOnline(Objects.requireNonNull(getContext()))) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        if (getContext() != null && !isOnline(getContext())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Warning")
                     .setMessage("Нет доступа в интернет. Проверьте наличие связи")
                     .setCancelable(false)
@@ -150,7 +149,7 @@ public class Now extends Fragment {
                             });
             AlertDialog alert = builder.create();
             alert.show();
-        } else {
+        } else if (getContext()!=null) {
             serverRequest();
         }
 

@@ -26,13 +26,13 @@ public class Notifications extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View rootView = inflater.inflate(R.layout.fragment_notifications, container, false);
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             rootView.findViewById(R.id.layoutNotific).setBackgroundColor(Color.parseColor("#18191D"));
         }
         else{

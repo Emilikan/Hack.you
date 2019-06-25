@@ -26,7 +26,6 @@ public class Settings extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class Settings extends Fragment {
         final Switch changeTheme = rootView.findViewById(R.id.switch1);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         final SharedPreferences.Editor editor = preferences.edit();
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             rootView.findViewById(R.id.settingsLayout).setBackgroundColor(Color.parseColor("#18191D"));
             rootView.findViewById(R.id.layout1).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             rootView.findViewById(R.id.layout2).setBackgroundResource(R.drawable.dark_recycler_view_frame);
@@ -77,10 +76,9 @@ public class Settings extends Fragment {
             changeTheme.setChecked(false);
         }
         changeTheme.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                if (preferences.getString("theme", "light").equals("dark")){
                     changeTheme.setText("Темная тема");
                     editor.putString("theme","light");
                     Intent intent = new Intent(getContext(), MainActivity.class);

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -21,15 +20,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -94,7 +90,6 @@ public class History extends Fragment {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,7 +98,7 @@ public class History extends Fragment {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         now = rootView.findViewById(R.id.now);
         lastDay = rootView.findViewById(R.id.lastDay);
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             lastDay.setTextColor(Color.parseColor("#3CC1D4"));
             now.setTextColor(Color.parseColor("#3CC1D4"));
             rootView.findViewById(R.id.container).setBackgroundColor(Color.parseColor("#18191D"));
@@ -207,8 +202,8 @@ public class History extends Fragment {
             }
         });
 
-        if (!isOnline(Objects.requireNonNull(getContext()))) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        if (getContext() != null && !isOnline(getContext())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Warning")
                     .setMessage("Нет доступа в интернет. Проверьте наличие связи")
                     .setCancelable(false)
@@ -220,7 +215,7 @@ public class History extends Fragment {
                             });
             AlertDialog alert = builder.create();
             alert.show();
-        } else {
+        } else if (getContext()!=null) {
             newStateWhenNewDate(thisDate, thisTime);
         }
 
@@ -236,7 +231,6 @@ public class History extends Fragment {
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
@@ -401,15 +395,13 @@ public class History extends Fragment {
     }
 
     // записываем все милисекунды за день в массив и продолжаем
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getAllMs(final String thisDate, String thisTime) {
         final long thisMs = getMillisecond(thisDate + " " + thisTime);
         final long startMS = getMillisecond(thisDate + " " + "00:00:00");
         long endMs = getMillisecond(thisDate +  " " + "23:59:59");
 
-        if (!isOnline(Objects.requireNonNull(getContext()))) {
-            if(getContext() != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        if (getContext()!= null && !isOnline(getContext())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Warning")
                         .setMessage("Нет доступа в интернет. Проверьте наличие связи")
                         .setCancelable(false)
@@ -421,8 +413,7 @@ public class History extends Fragment {
                                 });
                 AlertDialog alert = builder.create();
                 alert.show();
-            }
-        } else {
+        } else if (getContext()!=null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -490,10 +481,9 @@ public class History extends Fragment {
     }
 
     // метод обновления информации на основе новой даты
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void newStateWhenNewDate(String thisDate, String thisTime) {
-        if (!isOnline(Objects.requireNonNull(getContext()))) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        if (getContext() != null && !isOnline(getContext())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Warning")
                     .setMessage("Нет доступа в интернет. Проверьте наличие связи")
                     .setCancelable(false)
@@ -505,13 +495,12 @@ public class History extends Fragment {
                             });
             AlertDialog alert = builder.create();
             alert.show();
-        } else {
+        } else if (getContext()!=null) {
             getAllMs(thisDate, thisTime);
         }
     }
 
     // чтобы каждый раз при смене времени не обращаться к серверу
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void newStateWhenNewTime(String thisDate, String thisTime) {
         long thisMs = getMillisecond(thisDate + " " + thisTime);
         if(allTimeForTime != null && allStateForTime != null && allStateForTime.size()>0) {

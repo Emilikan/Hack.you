@@ -28,12 +28,11 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @NonNull
+
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             View view = inflater.inflate(R.layout.list_recycler_view_dark, parent, false);
             return new ViewHolder(view);
         }

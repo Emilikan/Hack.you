@@ -1,5 +1,10 @@
 package com.example.app_for_rightech_iot_cloud;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.DialogInterface;
@@ -27,12 +32,15 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
     int leftArrow;
@@ -49,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView title;
 
     private int mPosition;
+    private static int sJobId = 1;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +72,34 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("showAlert", null);
+        if(preferences.getInt("IdNotif", -1)==-1) {
+            editor.putInt("IdNotif", 0);
+        }
         editor.apply();
 
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            startService(new Intent(this, NotificationsService.class));
+        } else {
+            ComponentName jobService = new ComponentName(this, NotificationsJobService.class);
+            JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
+            exerciseJobBuilder.setMinimumLatency(TimeUnit.SECONDS.toMillis(1));
+            exerciseJobBuilder.setOverrideDeadline(TimeUnit.SECONDS.toMillis(5));
+            exerciseJobBuilder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
+            exerciseJobBuilder.setRequiresDeviceIdle(false);
+            exerciseJobBuilder.setRequiresCharging(false);
+            exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(10), JobInfo.BACKOFF_POLICY_LINEAR);
+
+            Log.i(TAG, "scheduleJob: adding job to scheduler");
+
+            JobScheduler jobScheduler = (JobScheduler) this.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            jobScheduler.schedule(exerciseJobBuilder.build());
+        }
+
+        startService(new Intent(this, NotificationsService.class));
+
+
+        if (preferences.getString("theme", "light").equals("dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));
             title.setTextColor(Color.parseColor("#E9E9E9"));

@@ -34,14 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     private static ApiAuth apiAuth;
     private boolean resp;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         Button btnSignIn = findViewById(R.id.confirm);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.linearLayout).setBackgroundColor(Color.parseColor("#18191D"));
             EditText login = findViewById(R.id.Login);

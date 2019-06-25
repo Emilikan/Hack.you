@@ -2,6 +2,7 @@ package com.example.app_for_rightech_iot_cloud;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -12,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +58,7 @@ public class Now extends Fragment {
     private TextView textViewOnTimeM;
     private TextView textViewOffTimeH;
     private TextView textViewOffTimeM;
-
+    private SwipeRefreshLayout mSwipeRefresh;
     private static final String BASE_URL = "https://rightech.lab.croc.ru/";
 
     private String id;
@@ -74,6 +76,18 @@ public class Now extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        mSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.basicLayout);
+
+        //Настраиваем выполнение OnRefreshListener для данной activity:
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         if (Objects.equals(preferences.getString("theme", "light"), "dark")){
             rootView.findViewById(R.id.basicLayout).setBackgroundColor(Color.parseColor("#18191D"));
             rootView.findViewById(R.id.constraint1).setBackgroundResource(R.drawable.dark_frame);

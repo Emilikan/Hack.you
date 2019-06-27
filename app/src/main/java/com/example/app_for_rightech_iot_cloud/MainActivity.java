@@ -1,11 +1,15 @@
 package com.example.app_for_rightech_iot_cloud;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,7 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView title;
 
     private int mPosition;
+    private static int sJobId = 1;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +68,32 @@ public class MainActivity extends AppCompatActivity {
         final ImageView rightButton = findViewById(R.id.settings);
 
 
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("showAlert", null);
+        if(preferences.getInt("IdNotif", -1)==-1) {
+            editor.putInt("IdNotif", 0);
+        }
+        editor.apply();
 
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            startService(new Intent(this, NotificationsService.class));
+        } else {
+            ComponentName jobService = new ComponentName(this, NotificationsJobService.class);
+            JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
+            exerciseJobBuilder.setMinimumLatency(TimeUnit.SECONDS.toMillis(1));
+            exerciseJobBuilder.setOverrideDeadline(TimeUnit.SECONDS.toMillis(5));
+            exerciseJobBuilder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
+            exerciseJobBuilder.setRequiresDeviceIdle(false);
+            exerciseJobBuilder.setRequiresCharging(false);
+            exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(10), JobInfo.BACKOFF_POLICY_LINEAR);
+
+            JobScheduler jobScheduler = (JobScheduler) this.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            jobScheduler.schedule(exerciseJobBuilder.build());
+        }
+
+
+        if (preferences.getString("theme", "light").equals("dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));
             title.setTextColor(Color.parseColor("#E9E9E9"));
@@ -194,6 +222,79 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 
+    // получаем все объекты, затем помещаем их имена в toolbar
+    private void setNamesAndId(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiGetAllObjects apiGetAllObjects = retrofit.create(ApiGetAllObjects.class);
+
+        apiGetAllObjects.allObjects().enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.body() != null) {
+                    Log.i("Request", response.body().toString());
+                    responseConversion(response.body(), response.body().size());
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Нет ответа от сервера", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "error " + t, Toast.LENGTH_SHORT).show();
+                Log.i("Request", "error " + t);
+            }
+        });
+    }
+
+    // функция, которая принимает на вход массив ответа сервера и добавляет в ArrayList id и name объектов (для дальнейшей возможности смены объектов)
+    private void responseConversion(JsonArray response, int length) {
+        for (int i = 0; i < length; i++) {
+            JsonElement id = response.get(i).getAsJsonObject().get("_id");
+            JsonElement name = response.get(i).getAsJsonObject().get("name");
+            if(response.get(i).getAsJsonObject().get("config") != null) {
+                if (response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels") != null) {
+                    setCriticalValues(response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels"), response.get(i).getAsJsonObject().get("state").getAsJsonObject().get("_ts").getAsString());
+                }
+            }
+
+
+    private void setCriticalValues(JsonElement configLevels, String miliS){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        String isFirst = preferences.getString("isFirst", null);
+        if(isFirst == null){
+            editor.putString("thisTime", miliS);
+            editor.putString("isFirst", "false");
+        }
+        try {
+            editor.putString("EmulsioncalcHigh", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("High").getAsString());
+            editor.putString("EmulsioncalcLow", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Low").getAsString());
+            editor.putString("EmulsioncalcMax", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Max").getAsString());
+            editor.putString("EmulsioncalcMin", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("LevelHigh", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("High").getAsString());
+            editor.putString("LevelLow", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Low").getAsString());
+            editor.putString("LevelMax", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Max").getAsString());
+            editor.putString("LevelMin", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("phHigh", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("High").getAsString());
+            editor.putString("phLow", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Low").getAsString());
+            editor.putString("phMax", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Max").getAsString());
+            editor.putString("phMin", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("temp_phHigh", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("High").getAsString());
+            editor.putString("temp_phLow", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Low").getAsString());
+            editor.putString("temp_phMax", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Max").getAsString());
+            editor.putString("temp_phMin", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Min").getAsString());
+            editor.apply();
+        } catch (Exception e){
+            Toast.makeText(this, "Скорее всего, на сервере что-то поменялось. Сообщите в поддержку", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

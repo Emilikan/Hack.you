@@ -53,7 +53,6 @@ public class Settings extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -64,17 +63,19 @@ public class Settings extends Fragment {
         final Switch changeTheme = rootView.findViewById(R.id.switch1);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         final SharedPreferences.Editor editor = preferences.edit();
+
         final Switch notifications = rootView.findViewById(R.id.switch2);
         names = new ArrayList<>();
         ids = new ArrayList<>();
         final TextView factory = rootView.findViewById(R.id.factory);
-        if (Objects.equals(preferences.getString("Notifications", ""), "TRUE")){
+        if (preferences.getString("Notifications", "").equals("TRUE")){
             notifications.setChecked(true);
         }
         else {
             notifications.setChecked(false);
         }
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+      
+        if (preferences.getString("theme", "light").equals("dark")){
             getActivity().setTheme(R.style.DarkTheme);
             getActivity().findViewById(R.id.toolbar).setBackgroundColor(Color.parseColor("#282E33"));
             title.setTextColor(Color.parseColor("#E9E9E9"));
@@ -150,10 +151,10 @@ public class Settings extends Fragment {
             }
         });
         changeTheme.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                if (preferences.getString("theme", "light").equals("dark")){
+                    changeTheme.setText("Темная тема");
                     editor.putString("theme","light");
                     FragmentManager fragmentManager = getFragmentManager();
                     Fragment fragment = new Settings();

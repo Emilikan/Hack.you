@@ -8,6 +8,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Now">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <FrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -24,9 +27,7 @@
             android:visibility="visible" />
     </FrameLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -746,7 +747,7 @@
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </LinearLayout>
+    </FrameLayout>
     </ScrollView>
-</FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
 

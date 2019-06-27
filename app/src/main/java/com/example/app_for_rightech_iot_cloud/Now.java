@@ -92,7 +92,6 @@ public class Now extends Fragment {
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
-
                         //Останавливаем обновление:
                         mSwipeRefresh.setRefreshing(false)
                         ;}}, 500);

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView leftButton = findViewById(R.id.notific);
         final ImageView rightButton = findViewById(R.id.settings);
 
+
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("showAlert", null);
         if(preferences.getInt("IdNotif", -1)==-1) {
@@ -114,16 +116,27 @@ public class MainActivity extends AppCompatActivity {
             rightButton.setImageResource(settings);
         }
 
-        names = new ArrayList<>();
-        ids = new ArrayList<>();
-        nameOfTitle = preferences.getString("name", "Выберите завод (установку)");
+        nameOfTitle = preferences.getString("Factory","");
         title.setText(nameOfTitle);
 
-        setNamesAndId();
 
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                    setTheme(R.style.DarkTheme);
+                    leftArrow = R.drawable.left_arrow_white;
+                    notification = R.drawable.notification_white;
+                    artificialIntelligence = R.drawable.artifical_intelligence_white;
+                    settings = R.drawable.settings_white;
+                }
+                else{
+                    setTheme(R.style.AppTheme);
+                    leftArrow = R.drawable.left_arrow;
+                    notification = R.drawable.notification;
+                    artificialIntelligence = R.drawable.artificial_intelligence;
+                    settings = R.drawable.settings;
+                }
                 if (title.getText() == "Уведомления"){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new MainFragment();
@@ -158,6 +171,21 @@ public class MainActivity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                    setTheme(R.style.DarkTheme);
+                    leftArrow = R.drawable.left_arrow_white;
+                    notification = R.drawable.notification_white;
+                    artificialIntelligence = R.drawable.artifical_intelligence_white;
+                    settings = R.drawable.settings_white;
+                }
+                else{
+                    setTheme(R.style.AppTheme);
+                    leftArrow = R.drawable.left_arrow;
+                    notification = R.drawable.notification;
+                    artificialIntelligence = R.drawable.artificial_intelligence;
+                    settings = R.drawable.settings;
+
+                }
                 if (title.getText() == "Уведомления"){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     Fragment fragment = new Settings();
@@ -187,61 +215,6 @@ public class MainActivity extends AppCompatActivity {
                         title.setText("Настройки");
                     }
                 }
-            }
-        });
-
-        title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int p;
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.alert, null);
-                builder.setView(view);
-                builder.setCancelable(true);
-                Spinner spinner = view.findViewById(R.id.spinner);
-                ArrayAdapter<?> adapter =
-                        new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, names);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setGravity(Gravity.CENTER);
-                spinner.setAdapter(adapter);
-
-                builder.setNegativeButton("Ок", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(names.size() > 0) {
-                            title.setText(names.get(mPosition));
-
-                            FragmentManager fragmentManager = getSupportFragmentManager();
-                            Fragment fragment = new MainFragment();
-                            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                        } else {
-                            setNamesAndId();
-                        }
-                    }
-                });
-
-                final AlertDialog dialog = builder.create();
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        mPosition = position;
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("id", ids.get(position));
-                        editor.putString("name", names.get(position));
-                        editor.apply();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-
-                });
-                dialog.show();
-
-
             }
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -289,11 +262,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            names.add(name.getAsString());
-            ids.add(id.getAsString());
-        }
-
-    }
 
     private void setCriticalValues(JsonElement configLevels, String miliS){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);

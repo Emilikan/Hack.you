@@ -15,10 +15,13 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -52,6 +55,8 @@ public class History extends Fragment {
 
     private static final String BASE_URL = "https://rightech.lab.croc.ru/";
 
+    private Animation mEnlargeAnimation;
+
     private Calendar calendar = Calendar.getInstance();
 
     private TextView textViewNowDate;
@@ -80,7 +85,7 @@ public class History extends Fragment {
 
     private String id;
     private String name;
-
+    CardView cardView;
     private JsonArray allStateForTime;
     private ArrayList<Long> allTimeForTime = new ArrayList<>();
 
@@ -115,8 +120,6 @@ public class History extends Fragment {
             rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.dark_frame);
-            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.dark_frame);
-            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.dark_frame);
@@ -137,8 +140,6 @@ public class History extends Fragment {
             rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.frame);
-            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.frame);
-            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.frame);
@@ -165,9 +166,6 @@ public class History extends Fragment {
         textViewWorkTime = rootView.findViewById(R.id.text_view_work_time);
         textViewNotWorkTime = rootView.findViewById(R.id.text_view_notWork_time);
         textViewDifference = rootView.findViewById(R.id.text_view_difference);
-        textViewFixTime = rootView.findViewById(R.id.text_view_fix_time);
-        textViewFixDate = rootView.findViewById(R.id.text_view_fix_date);
-        textViewWorkReset = rootView.findViewById(R.id.text_view_workReset);
         textViewOnTimeH = rootView.findViewById(R.id.text_view_on_timeH);
         textViewOnTimeM = rootView.findViewById(R.id.text_view_on_timeM);
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
@@ -222,7 +220,13 @@ public class History extends Fragment {
             newStateWhenNewDate(thisDate, thisTime);
         }
 
+
         return rootView;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        cardView.clearAnimation();
     }
 
     public void setDate(View v) {
@@ -270,15 +274,9 @@ public class History extends Fragment {
         String nTonM = getDataFromJson(state, "ntonm"); // время включения (минуты)
         String nTofH = getDataFromJson(state, "ntofh"); // время выключения (часы)
         String nTofM = getDataFromJson(state, "ntofm"); // время выключения (минуты)
-        String workReset = getDataFromJson(state, "workreset");
         String timeDiff = getDataFromJson(state, "timediff");
         String prevTime = getDataFromJson(state, "prevtime"); // время фиксации
 
-        if (workReset.equals("true")) {
-            workReset = "Да";
-        } else if (workReset.equals("false")) {
-            workReset = "Нет";
-        }
         if (active.equals("true")) {
             active = "Да";
         } else if (active.equals("false")) {
@@ -304,24 +302,13 @@ public class History extends Fragment {
             textViewNowTime.setText("Null");
         }
 
-        try {
-            timePr = Long.parseLong(prevTime);
-            Date datePrev = new Date(timePr / 1000);
-            textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
-            textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
-
-        } catch (Exception e) {
-            textViewFixTime.setText("Null");
-            textViewFixDate.setText("Null");
-        }
 
         try {
             timeW = Long.parseLong(workTime);
             Date timeWork = new Date(timeW / 1000);
-            textViewWorkTime.setText(workTime);
+
+            textViewWorkTime.setText(Integer.parseInt(workTime)/(3600000*24)+"");
         } catch (Exception e) {
-            textViewFixTime.setText("Null");
-            textViewFixDate.setText("Null");
         }
 
         try {
@@ -340,7 +327,6 @@ public class History extends Fragment {
         textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
         textViewPumpWork.setText(active); // работает ли насос
         textViewDifference.setText(timeDiff);
-        textViewWorkReset.setText(workReset); // workreset
         textViewOnTimeH.setText(nTonH);
         textViewOnTimeM.setText(nTonM);
         textViewOffTimeH.setText(nTofH);

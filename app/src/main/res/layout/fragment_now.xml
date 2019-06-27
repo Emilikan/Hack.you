@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="375dp"
+    android:layout_marginBottom="50dp"
     android:id="@+id/basicLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -538,102 +539,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="7dp">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint11"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_fix_time"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:fontFamily="@font/roboto"
-                            app:layout_constraintBottom_toTopOf="@+id/text_view_fix_date"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/text_view_fix_date"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:gravity="center"
-                            android:text="Время фиксации()"
-                            android:textSize="10sp"
-                            app:fontFamily="@font/roboto"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_fix_time" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint12"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <com.caverock.androidsvg.SVGImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:layout_marginLeft="5dp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView36"
-                            app:layout_constraintEnd_toStartOf="@+id/text_view_workReset"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:svg="@raw/pump_work" />
-
-                        <TextView
-                            android:id="@+id/textView36"
-                            android:layout_width="115dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="workreset"
-                            app:fontFamily="@font/roboto"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_workReset" />
-
-                        <TextView
-                            android:id="@+id/text_view_workReset"
-                            android:layout_width="75dp"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:fontFamily="@font/roboto"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView6"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -743,6 +648,7 @@
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginTop="7dp"
+                android:layout_marginBottom="25dp"
                 android:layout_height="75dp">
 
                 <android.support.v7.widget.CardView
@@ -826,4 +732,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

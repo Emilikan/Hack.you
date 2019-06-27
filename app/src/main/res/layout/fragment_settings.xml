@@ -7,173 +7,171 @@
     android:orientation="vertical"
     tools:context=".Settings">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сбор информации"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#18191D" />
-
-    <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/recycler_view_frame"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-
-                android:text="Выбрать завод:" />
-
-            <TextView
-                android:id="@+id/factory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#3CC1D4"
-                android:gravity="right"
-                android:layout_marginRight="20dp"
-                android:text="Метровагонмаш" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:text="Временной период:" />
-
-            <TextView
-                android:id="@+id/period"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#3CC1D4"
-                android:gravity="right"
-                android:layout_marginRight="20dp"
-                android:text="1 месяц" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Стилистика"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#18191D" />
-
-    <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/recycler_view_frame"
-        android:orientation="horizontal">
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="Темная тема" />
-
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Помощь"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#18191D" />
-
-    <LinearLayout
-        android:id="@+id/layout3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/recycler_view_frame"
-        android:orientation="vertical">
+            android:layout_marginRight="10dp"
+            android:text="Сбор информации"
+            android:textColor="#18191D" />
 
         <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/recycler_view_frame"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+
+                    android:text="Выбрать завод:" />
+
+                <TextView
+                    android:id="@+id/factory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Метровагонмаш"
+                    android:textColor="#3CC1D4" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="Отображать желтые значения"
+                android:theme="@style/Switch" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:text="Стилистика"
+            android:textColor="#18191D" />
+
+        <LinearLayout
+            android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/recycler_view_frame"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView12"
+            <Switch
+                android:id="@+id/switch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
-                android:text="Поддержка" />
-
-            <TextView
-                android:id="@+id/question"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#3CC1D4"
-                android:gravity="right"
                 android:layout_marginRight="20dp"
-                android:text="Задать вопрос" />
+                android:layout_weight="1"
+                android:text="Темная тема"
+                android:theme="@style/Switch" />
+
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:text="Помощь"
+            android:textColor="#18191D" />
 
         <LinearLayout
+            android:id="@+id/layout3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/recycler_view_frame"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:text="О нас" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/know"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#3CC1D4"
-                android:gravity="right"
-                android:layout_marginRight="20dp"
-                android:text="Узнать" />
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Поддержка" />
+
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Задать вопрос"
+                    android:textColor="#3CC1D4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="О нас" />
+
+                <TextView
+                    android:id="@+id/know"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Узнать"
+                    android:textColor="#3CC1D4" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

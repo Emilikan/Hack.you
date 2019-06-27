@@ -22,5 +22,6 @@ public class Enter extends AppCompatActivity {
         Intent intent = new Intent(Enter.this, LoginActivity.class);
         intent.putExtra("PARAM", 1);
         startActivity(intent);
+
     }
 }

@@ -30,7 +30,7 @@ public class MyBroadReceiv extends BroadcastReceiver {
             exerciseJobBuilder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
             exerciseJobBuilder.setRequiresDeviceIdle(false);
             exerciseJobBuilder.setRequiresCharging(false);
-            exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(10), JobInfo.BACKOFF_POLICY_LINEAR);
+            exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(3), JobInfo.BACKOFF_POLICY_LINEAR);
 
             Log.i(TAG, "scheduleJob: adding job to scheduler");
 

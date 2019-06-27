@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -31,7 +30,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -39,8 +37,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
     int leftArrow;
@@ -90,13 +86,9 @@ public class MainActivity extends AppCompatActivity {
             exerciseJobBuilder.setRequiresCharging(false);
             exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(10), JobInfo.BACKOFF_POLICY_LINEAR);
 
-            Log.i(TAG, "scheduleJob: adding job to scheduler");
-
             JobScheduler jobScheduler = (JobScheduler) this.getSystemService(Context.JOB_SCHEDULER_SERVICE);
             jobScheduler.schedule(exerciseJobBuilder.build());
         }
-
-        startService(new Intent(this, NotificationsService.class));
 
 
         if (preferences.getString("theme", "light").equals("dark")){
@@ -291,11 +283,50 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < length; i++) {
             JsonElement id = response.get(i).getAsJsonObject().get("_id");
             JsonElement name = response.get(i).getAsJsonObject().get("name");
+            if(response.get(i).getAsJsonObject().get("config") != null) {
+                if (response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels") != null) {
+                    setCriticalValues(response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels"), response.get(i).getAsJsonObject().get("state").getAsJsonObject().get("_ts").getAsString());
+                }
+            }
 
             names.add(name.getAsString());
             ids.add(id.getAsString());
         }
 
+    }
+
+    private void setCriticalValues(JsonElement configLevels, String miliS){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        String isFirst = preferences.getString("isFirst", null);
+        if(isFirst == null){
+            editor.putString("thisTime", miliS);
+            editor.putString("isFirst", "false");
+        }
+        try {
+            editor.putString("EmulsioncalcHigh", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("High").getAsString());
+            editor.putString("EmulsioncalcLow", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Low").getAsString());
+            editor.putString("EmulsioncalcMax", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Max").getAsString());
+            editor.putString("EmulsioncalcMin", configLevels.getAsJsonObject().get("emulsioncalc").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("LevelHigh", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("High").getAsString());
+            editor.putString("LevelLow", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Low").getAsString());
+            editor.putString("LevelMax", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Max").getAsString());
+            editor.putString("LevelMin", configLevels.getAsJsonObject().get("level").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("phHigh", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("High").getAsString());
+            editor.putString("phLow", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Low").getAsString());
+            editor.putString("phMax", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Max").getAsString());
+            editor.putString("phMin", configLevels.getAsJsonObject().get("ph").getAsJsonObject().get("Min").getAsString());
+
+            editor.putString("temp_phHigh", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("High").getAsString());
+            editor.putString("temp_phLow", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Low").getAsString());
+            editor.putString("temp_phMax", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Max").getAsString());
+            editor.putString("temp_phMin", configLevels.getAsJsonObject().get("temp_ph").getAsJsonObject().get("Min").getAsString());
+            editor.apply();
+        } catch (Exception e){
+            Toast.makeText(this, "Скорее всего, на сервере что-то поменялось. Сообщите в поддержку", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

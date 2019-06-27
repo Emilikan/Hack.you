@@ -84,6 +84,8 @@ public class History extends Fragment {
     private JsonArray allStateForTime;
     private ArrayList<Long> allTimeForTime = new ArrayList<>();
 
+    private Context context = getContext();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,8 @@ public class History extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_hisrory, container, false);
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        context = getContext();
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         now = rootView.findViewById(R.id.now);
         lastDay = rootView.findViewById(R.id.lastDay);
         if (preferences.getString("theme", "light").equals("dark")){
@@ -223,7 +226,7 @@ public class History extends Fragment {
     }
 
     public void setDate(View v) {
-        new DatePickerDialog(getContext(), d,
+        new DatePickerDialog(context, d,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH))
@@ -434,14 +437,18 @@ public class History extends Fragment {
                         allTimeForTime = arrOfAllTimeInDay;
                         getNewState(thisDate, thisMs, arrOfAllTimeInDay, response.body());
                     } else {
-                        Toast.makeText(getContext(), "Нет ответа от сервера", Toast.LENGTH_LONG).show();
+                        if(context!=null) {
+                            Toast.makeText(context, "Нет ответа от сервера", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<JsonArray> call, Throwable t) {
-                    Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
-                    Log.i("Request", "error " + t);
+                    if(context!=null) {
+                        Toast.makeText(context, "error " + t, Toast.LENGTH_SHORT).show();
+                        Log.i("Request", "error " + t);
+                    }
                 }
             });
         }
@@ -524,7 +531,7 @@ public class History extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                if (response.body() != null) {
+                if (response.body() != null && context != null) {
                     Log.i("Request", response.body().toString());
                     // переписать, чтобы можно было выбирать из toolbar
                     JsonElement actualElement = findElement(id, name, response.body());
@@ -535,7 +542,7 @@ public class History extends Fragment {
                         Log.i("FFF", startTimeOfThisDay + ", " + stateDateInMs);
                         // если дата объекта не совпадает с текущей, то говорим об этом пользователю (при этом говорим только 1 раз и запоминаем выбор пользователя)
 
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                         String showAlert = preferences.getString("showAlert", null);
                         if(showAlert == null) {
                             if (stateDateInMs < startTimeOfThisDay) {
@@ -606,16 +613,16 @@ public class History extends Fragment {
                             setValues(state);
                         }
                     } else {
-                        Toast.makeText(getContext(), "Неправильный ответ сервера", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Неправильный ответ сервера", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Нет ответа от сервера", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Нет ответа от сервера", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "error " + t, Toast.LENGTH_SHORT).show();
                 Log.i("Request", "error " + t);
             }
         });

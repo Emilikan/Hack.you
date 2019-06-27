@@ -76,7 +76,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         tabLayout = rootView.findViewById(R.id.tabs);
-        if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+        if (preferences.getString("theme", "light").equals("dark")){
             rootView.findViewById(R.id.tabs).setBackgroundColor(Color.parseColor("#18191D"));
             tabLayout.setTabTextColors(Color.parseColor("#E9E9E9"),Color.parseColor("#E9E9E9"));
         }

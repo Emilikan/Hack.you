@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -89,8 +90,9 @@ public class Now extends Fragment {
                         //Останавливаем обновление:
                         mSwipeRefresh.setRefreshing(false)
                         ;}}, 500);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Fragment fragment = new MainFragment();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
             }
         });
 

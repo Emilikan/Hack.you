@@ -27,22 +27,40 @@ public class LoginActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://rightech.lab.croc.ru/";
     private static ApiAuth apiAuth;
     private boolean resp;
+    private EditText loginEt;
+    private EditText passwordEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         Button btnSignIn = findViewById(R.id.confirm);
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(preferences.getString("login", null) != null && preferences.getString("password", null) != null){
+            try {
+                if(auth(preferences.getString("login", ""), preferences.getString("password", ""))){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("PARAM", 1);
+                    startActivity(intent);
+                } else {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("login", null);
+                    editor.putString("password", null);
+                    editor.apply();
+                }
+            } catch (Exception e){
+                Log.i("error", e + "");
+            }
+        }
         if (preferences.getString("theme", "light").equals("dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.linearLayout).setBackgroundColor(Color.parseColor("#18191D"));
-            EditText login = findViewById(R.id.Login);
-            EditText pass = findViewById(R.id.Password);
-            login.setBackgroundResource(R.drawable.input_dark);
-            pass.setBackgroundResource(R.drawable.input_dark);
-            login.setTextColor(Color.parseColor("#B7BEC7"));
-            pass.setTextColor(Color.parseColor("#B7BEC7"));
+            loginEt = findViewById(R.id.Login);
+            passwordEt = findViewById(R.id.Password);
+            loginEt.setBackgroundResource(R.drawable.input_dark);
+            passwordEt.setBackgroundResource(R.drawable.input_dark);
+            loginEt.setTextColor(Color.parseColor("#B7BEC7"));
+            passwordEt.setTextColor(Color.parseColor("#B7BEC7"));
             btnSignIn.setBackgroundResource(R.drawable.button_dark);
             btnSignIn.setTextColor(Color.parseColor("#FFFFFF"));
             ImageView logo =  findViewById(R.id.imageView4);
@@ -51,12 +69,12 @@ public class LoginActivity extends AppCompatActivity {
         else{
             setTheme(R.style.AppTheme);
             findViewById(R.id.linearLayout).setBackgroundColor(Color.parseColor("#ed1a3a"));
-            EditText login = findViewById(R.id.Login);
-            EditText pass = findViewById(R.id.Password);
-            login.setBackgroundResource(R.drawable.input_primary);
-            pass.setBackgroundResource(R.drawable.input_primary);
-            login.setTextColor(Color.parseColor("#ffffff"));
-            pass.setTextColor(Color.parseColor("#ffffff"));
+            loginEt = findViewById(R.id.Login);
+            passwordEt = findViewById(R.id.Password);
+            loginEt.setBackgroundResource(R.drawable.input_primary);
+            passwordEt.setBackgroundResource(R.drawable.input_primary);
+            loginEt.setTextColor(Color.parseColor("#ffffff"));
+            passwordEt.setTextColor(Color.parseColor("#ffffff"));
             btnSignIn.setBackgroundResource(R.drawable.button_background);
             btnSignIn.setTextColor(Color.parseColor("#ed1a3a"));
             ImageView logo =  findViewById(R.id.imageView4);
@@ -66,16 +84,38 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("PARAM", 1);
-                startActivity(intent);
-
+                String login = loginEt.getText().toString().trim();
+                String password = passwordEt.getText().toString().trim();
+                if(!login.equals("") && !password.equals("")){
+                    if(auth(login, password)){
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("PARAM", 1);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Авторизация не удалась", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Вы не заполнили поля логин и/или пароль", Toast.LENGTH_LONG).show();
+                }
                 //auth();
             }
         });
     }
 
-    public void auth(){
+    private boolean auth(String login, String password){
+        boolean result = false;
+        if(login != null && login.equals("mmsh-mech1") && password != null && password.equals("P@$$w0rd")){
+            result = true;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("login", login);
+            editor.putString("password", password);
+            editor.apply();
+        }
+        return result;
+    }
+
+    public void authServer(){
         AuthBody body = new AuthBody();
         body.login = "mmsh-mech1";
         body.password = "P@$$w0rd";

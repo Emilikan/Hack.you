@@ -78,7 +78,7 @@ public class Now extends Fragment {
         context = getContext();
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        mSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.basicLayout);
+        mSwipeRefresh = rootView.findViewById(R.id.basicLayout);
 
         //Настраиваем выполнение OnRefreshListener для данной activity:
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

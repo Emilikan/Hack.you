@@ -24,7 +24,7 @@
         <LinearLayout
             android:id="@+id/layout1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/recycler_view_frame"
@@ -55,7 +55,21 @@
                     android:text="Метровагонмаш"
                     android:textColor="#3CC1D4" />
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="Отображать желтые значения"
+                android:theme="@style/Switch" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView

@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -51,9 +52,6 @@ public class Now extends Fragment {
     private TextView textViewWorkTime;
     private TextView textViewNotWorkTime;
     private TextView textViewDifference;
-    private TextView textViewFixTime;
-    private TextView textViewFixDate;
-    private TextView textViewWorkReset;
     private TextView textViewOnTimeH;
     private TextView textViewOnTimeM;
     private TextView textViewOffTimeH;
@@ -76,13 +74,18 @@ public class Now extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         mSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.basicLayout);
 
         //Настраиваем выполнение OnRefreshListener для данной activity:
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+
+                        //Останавливаем обновление:
+                        mSwipeRefresh.setRefreshing(false)
+                        ;}}, 500);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
@@ -100,8 +103,6 @@ public class Now extends Fragment {
             rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.dark_frame);
-            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.dark_frame);
-            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.dark_frame);
             rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.dark_frame);
@@ -119,8 +120,6 @@ public class Now extends Fragment {
             rootView.findViewById(R.id.constraint8).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint9).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint10).setBackgroundResource(R.drawable.frame);
-            rootView.findViewById(R.id.constraint11).setBackgroundResource(R.drawable.frame);
-            rootView.findViewById(R.id.constraint12).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint13).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint14).setBackgroundResource(R.drawable.frame);
             rootView.findViewById(R.id.constraint15).setBackgroundResource(R.drawable.frame);
@@ -139,9 +138,6 @@ public class Now extends Fragment {
         textViewNotWorkTime = rootView.findViewById(R.id.text_view_notWork_time);
         textViewPumpWork = rootView.findViewById(R.id.text_view_pump_work);
         textViewDifference = rootView.findViewById(R.id.text_view_difference);
-        textViewFixTime = rootView.findViewById(R.id.text_view_fix_time);
-        textViewFixDate = rootView.findViewById(R.id.text_view_fix_date);
-        textViewWorkReset = rootView.findViewById(R.id.text_view_workReset);
         textViewOnTimeH = rootView.findViewById(R.id.text_view_on_timeH);
         textViewOnTimeM = rootView.findViewById(R.id.text_view_on_timeM);
         textViewOffTimeH = rootView.findViewById(R.id.text_view_off_timeH);
@@ -238,15 +234,9 @@ public class Now extends Fragment {
             String nTonM = getDataFromJson(state, "ntonm"); // время включения (минуты)
             String nTofH = getDataFromJson(state, "ntofh"); // время выключения (часы)
             String nTofM = getDataFromJson(state, "ntofm"); // время выключения (минуты)
-            String workReset = getDataFromJson(state, "workreset");
             String timeDiff = getDataFromJson(state, "timediff");
             String prevTime = getDataFromJson(state, "prevtime"); // время фиксации
 
-            if (workReset.equals("true")) {
-                workReset = "Да";
-            } else if (workReset.equals("false")) {
-                workReset = "Нет";
-            }
             if (active.equals("true")) {
                 active = "Да";
             } else if (active.equals("false")) {
@@ -272,24 +262,13 @@ public class Now extends Fragment {
                 textViewNowTime.setText("Null");
             }
 
-            try {
-                timePr = Long.parseLong(prevTime);
-                Date datePrev = new Date(timePr / 1000);
-                textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
-                textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
-
-            } catch (Exception e) {
-                textViewFixTime.setText("Null");
-                textViewFixDate.setText("Null");
-            }
 
             try {
                 timeW = Long.parseLong(workTime);
                 Date timeWork = new Date(timeW / 1000);
                 textViewWorkTime.setText(workTime);
             } catch (Exception e) {
-                textViewFixTime.setText("Null");
-                textViewFixDate.setText("Null");
+
             }
 
             try {
@@ -309,7 +288,6 @@ public class Now extends Fragment {
             textViewLevel.setText(round(level, 2) + " м"); // уровень сож в м
             textViewPumpWork.setText(active); // работает ли насос
             textViewDifference.setText(timeDiff);
-            textViewWorkReset.setText(workReset); // workreset
             textViewOnTimeH.setText(nTonH);
             textViewOnTimeM.setText(nTonM);
             textViewOffTimeH.setText(nTofH);

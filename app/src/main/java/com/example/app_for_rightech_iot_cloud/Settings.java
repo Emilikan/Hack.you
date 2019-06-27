@@ -68,7 +68,7 @@ public class Settings extends Fragment {
         names = new ArrayList<>();
         ids = new ArrayList<>();
         final TextView factory = rootView.findViewById(R.id.factory);
-        if (preferences.getString("Notifications", "").equals("TRUE")){
+        if (preferences.getString("Notifications", "TRUE").equals("TRUE")){
             notifications.setChecked(true);
         }
         else {
@@ -88,6 +88,7 @@ public class Settings extends Fragment {
             rootView.findViewById(R.id.settingsLayout).setBackgroundColor(Color.parseColor("#18191D"));
             rootView.findViewById(R.id.layout1).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             rootView.findViewById(R.id.layout2).setBackgroundResource(R.drawable.dark_recycler_view_frame);
+            rootView.findViewById(R.id.layout5).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             rootView.findViewById(R.id.layout3).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             TextView text = rootView.findViewById(R.id.textView);
             text.setTextColor(Color.parseColor("#E9E9E9"));
@@ -117,6 +118,7 @@ public class Settings extends Fragment {
             rightButton.setImageResource(notification);
             rootView.findViewById(R.id.settingsLayout).setBackgroundColor(Color.parseColor("#ffffff"));
             rootView.findViewById(R.id.layout1).setBackgroundResource(R.drawable.recycler_view_frame);
+            rootView.findViewById(R.id.layout5).setBackgroundResource(R.drawable.recycler_view_frame);
             rootView.findViewById(R.id.layout2).setBackgroundResource(R.drawable.recycler_view_frame);
             rootView.findViewById(R.id.layout3).setBackgroundResource(R.drawable.recycler_view_frame);
             TextView text = rootView.findViewById(R.id.textView);
@@ -148,6 +150,14 @@ public class Settings extends Fragment {
                 }
                 editor.apply();
 
+            }
+        });
+        TextView exit = rootView.findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
         changeTheme.setOnClickListener(new View.OnClickListener() {

@@ -116,14 +116,16 @@ public class MainActivity extends AppCompatActivity {
             rightButton.setImageResource(settings);
         }
 
-        nameOfTitle = preferences.getString("Factory","");
+        names = new ArrayList<>();	        nameOfTitle = preferences.getString("Factory","");
+        ids = new ArrayList<>();
+        nameOfTitle = preferences.getString("name", "Выберите завод (установку)");
         title.setText(nameOfTitle);
-
+        setNamesAndId();
 
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                if (preferences.getString("theme", "light").equals("dark")){
                     setTheme(R.style.DarkTheme);
                     leftArrow = R.drawable.left_arrow_white;
                     notification = R.drawable.notification_white;
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Objects.equals(preferences.getString("theme", "light"), "dark")){
+                if (preferences.getString("theme", "light").equals("dark")){
                     setTheme(R.style.DarkTheme);
                     leftArrow = R.drawable.left_arrow_white;
                     notification = R.drawable.notification_white;
@@ -217,6 +219,61 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int p;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.alert, null);
+                builder.setView(view);
+                builder.setCancelable(true);
+                Spinner spinner = view.findViewById(R.id.spinner);
+                ArrayAdapter<?> adapter =
+                        new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, names);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setGravity(Gravity.CENTER);
+                spinner.setAdapter(adapter);
+
+                builder.setNegativeButton("Ок", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(names.size() > 0) {
+                            title.setText(names.get(mPosition));
+
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            Fragment fragment = new MainFragment();
+                            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        } else {
+                            setNamesAndId();
+                        }
+                    }
+                });
+
+                final AlertDialog dialog = builder.create();
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        mPosition = position;
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("id", ids.get(position));
+                        editor.putString("name", names.get(position));
+                        editor.apply();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+
+                });
+                dialog.show();
+
+
+            }
+        });
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
@@ -256,11 +313,15 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < length; i++) {
             JsonElement id = response.get(i).getAsJsonObject().get("_id");
             JsonElement name = response.get(i).getAsJsonObject().get("name");
-            if(response.get(i).getAsJsonObject().get("config") != null) {
+            if (response.get(i).getAsJsonObject().get("config") != null) {
                 if (response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels") != null) {
                     setCriticalValues(response.get(i).getAsJsonObject().get("config").getAsJsonObject().get("levels"), response.get(i).getAsJsonObject().get("state").getAsJsonObject().get("_ts").getAsString());
+                    names.add(name.getAsString());
+                    ids.add(id.getAsString());
                 }
             }
+        }
+    }
 
 
     private void setCriticalValues(JsonElement configLevels, String miliS){

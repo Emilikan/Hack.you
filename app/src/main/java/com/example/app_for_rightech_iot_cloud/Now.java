@@ -272,13 +272,20 @@ public class Now extends Fragment {
                 textViewNowTime.setText("Null");
             }
 
+            try {
+                timePr = Long.parseLong(prevTime);
+                Date datePrev = new Date(timePr / 1000);
+                //textViewFixTime.setText(formatTime.format(datePrev)); // время фиксации (время)
+                //textViewFixDate.setText(formatDate.format(datePrev)); // время фиксации (дата)
+
+            } catch (Exception e) {
+            }
 
             try {
                 timeW = Long.parseLong(workTime);
                 Date timeWork = new Date(timeW / 1000);
                 textViewWorkTime.setText(workTime);
             } catch (Exception e) {
-
             }
 
             try {

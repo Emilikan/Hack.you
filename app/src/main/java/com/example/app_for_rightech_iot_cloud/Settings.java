@@ -140,7 +140,7 @@ public class Settings extends Fragment {
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Objects.equals(preferences.getString("Notifications", ""), "TRUE")){
+                if (preferences.getString("Notifications", "").equals("TRUE")){
                     editor.putString("Notifications","FALSE");
                 }
                 else {

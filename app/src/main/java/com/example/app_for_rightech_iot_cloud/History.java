@@ -223,11 +223,12 @@ public class History extends Fragment {
 
         return rootView;
     }
-    @Override
+    /*@Override
     public void onPause() {
         super.onPause();
         cardView.clearAnimation();
     }
+    */
 
     public void setDate(View v) {
         new DatePickerDialog(context, d,

@@ -2,12 +2,27 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="375dp"
+    android:layout_width="match_parent"
     android:layout_marginBottom="50dp"
     android:id="@+id/basicLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Now">
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -732,4 +747,6 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+</FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
+

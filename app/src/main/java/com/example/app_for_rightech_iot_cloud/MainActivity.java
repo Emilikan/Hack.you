@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        title.setOnClickListener(new View.OnClickListener() {
+        /*title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int p;
@@ -274,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        */
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();

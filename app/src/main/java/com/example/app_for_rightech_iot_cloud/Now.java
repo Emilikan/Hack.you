@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,8 @@ public class Now extends Fragment {
     private String id;
     private String name;
 
+    private ProgressBar progressBar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +80,9 @@ public class Now extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_now, container, false);
         context = getContext();
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        progressBar = rootView.findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
 
         mSwipeRefresh = rootView.findViewById(R.id.basicLayout);
 
@@ -166,6 +172,7 @@ public class Now extends Fragment {
                             });
             AlertDialog alert = builder.create();
             alert.show();
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
         } else if (getContext()!=null) {
             serverRequest();
         }
@@ -184,6 +191,7 @@ public class Now extends Fragment {
         apiGetAllObjects.allObjects().enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
                 if (response.body() != null) {
                     Log.i("Request", response.body().toString());
                     // переписать, чтобы можно было выбирать из toolbar
@@ -203,6 +211,7 @@ public class Now extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
                 if(context!=null) {
                     Toast.makeText(getContext(), "error " + t, Toast.LENGTH_SHORT).show();
                 }

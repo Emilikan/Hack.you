@@ -136,7 +136,7 @@ public class Settings extends Fragment {
             changeTheme.setChecked(false);
         }
         setNamesAndId();
-        factory.setText(preferences.getString("Factory",""));
+        factory.setText(preferences.getString("Factory","Не выбрано"));
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

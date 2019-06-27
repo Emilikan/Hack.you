@@ -36,22 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         Button btnSignIn = findViewById(R.id.confirm);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(preferences.getString("login", null) != null && preferences.getString("password", null) != null){
-            try {
-                if(auth(preferences.getString("login", ""), preferences.getString("password", ""))){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("PARAM", 1);
-                    startActivity(intent);
-                } else {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("login", null);
-                    editor.putString("password", null);
-                    editor.apply();
-                }
-            } catch (Exception e){
-                Log.i("error", e + "");
-            }
-        }
+
         if (preferences.getString("theme", "light").equals("dark")){
             setTheme(R.style.DarkTheme);
             findViewById(R.id.linearLayout).setBackgroundColor(Color.parseColor("#18191D"));
@@ -73,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
             passwordEt = findViewById(R.id.Password);
             loginEt.setBackgroundResource(R.drawable.input_primary);
             passwordEt.setBackgroundResource(R.drawable.input_primary);
-            loginEt.setTextColor(Color.parseColor("#ffffff"));
-            passwordEt.setTextColor(Color.parseColor("#ffffff"));
+            loginEt.setTextColor(Color.parseColor("#000000"));
+            passwordEt.setTextColor(Color.parseColor("#000000"));
             btnSignIn.setBackgroundResource(R.drawable.button_background);
             btnSignIn.setTextColor(Color.parseColor("#ed1a3a"));
             ImageView logo =  findViewById(R.id.imageView4);

@@ -37,7 +37,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:typeface="sans"
-            app:fontFamily="@font/rubik" />
+            app:fontFamily="@font/open_sans" />
 
 
         <EditText
@@ -50,7 +50,7 @@
             android:ems="10"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:fontFamily="@font/rubik"
+            android:fontFamily="@font/open_sans"
             android:hint="Логин"
             android:inputType="textEmailAddress"
             android:textColor="#000"
@@ -67,7 +67,7 @@
             android:ems="10"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:fontFamily="@font/rubik"
+            android:fontFamily="@font/open_sans"
             android:hint="Пароль"
             android:inputType="textPassword"
             android:textColor="#000"
@@ -81,7 +81,7 @@
             android:layout_height="55dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/button_background"
-            android:fontFamily="@font/rubik"
+            android:fontFamily="@font/open_sans"
             android:gravity="center_horizontal|center_vertical"
             android:text="Войти"
             android:textAllCaps="false"

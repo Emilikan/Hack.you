@@ -474,6 +474,10 @@ public class History extends Fragment {
                         .setNegativeButton("Ок, закрыть",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
+                                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("forAlertDialog", null);
+                                        editor.apply();
                                         dialog.cancel();
                                     }
                                 });
@@ -495,7 +499,16 @@ public class History extends Fragment {
             getNewState(thisDate, thisMs, allTimeForTime, allStateForTime);
         } else {
             // если вдруг что-то пошло не так
-            newStateWhenNewDate(2, thisDate, thisTime);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            if(preferences.getString("forAlertDialog", null) == null) {
+                newStateWhenNewDate(2, thisDate, thisTime);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("forAlertDialog", "1");
+                editor.apply();
+
+            } else {
+                newStateWhenNewDate(1, thisDate, thisTime);
+            }
         }
     }
 

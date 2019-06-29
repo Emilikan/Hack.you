@@ -58,717 +58,744 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="346dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="7dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraint1"
+                <TextView
+                    android:id="@+id/textView11"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/frame"
-                    >
-
-                    <TextView
-                        android:id="@+id/text_view_date"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="6dp"
-                        android:gravity="center"
-                        android:text="00:00:0000"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/open_sans"
-                        app:layout_constraintBottom_toTopOf="@+id/textView15"
-                        app:layout_constraintEnd_toStartOf="@+id/text_view_time"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/textView15"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:text="Время объекта"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/text_view_time"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_view_date"
-                        app:fontFamily="@font/open_sans"/>
-
-                    <TextView
-                        android:id="@+id/text_view_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="1dp"
-                        android:layout_marginRight="1dp"
-                        android:gravity="center"
-                        android:text="00:00:00"
-                        android:textSize="36sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textView15"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView15"
-                        app:layout_constraintTop_toTopOf="@+id/textView15"
-                        app:fontFamily="@font/open_sans"/>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Параметры"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/open_sans" />
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
+                    android:id="@+id/cardView2"
+                    android:layout_width="346dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="7dp">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint2"
+                        android:id="@+id/constraint1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/frame">
+                        android:background="@drawable/frame"
+                        >
 
-                        <com.caverock.androidsvg.SVGImageView
-                            android:id="@+id/imageView"
+                        <TextView
+                            android:id="@+id/text_view_date"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView17"
-                            app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:svg="@raw/temperature" />
-
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="115dp"
-                            android:layout_height="25dp"
+                            android:layout_marginTop="6dp"
                             android:gravity="center"
-                            android:text="Температура СОЖ"
-                            android:textSize="12sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_temperature" />
-
-                        <TextView
-                            android:id="@+id/text_view_temperature"
-                            android:layout_width="75dp"
-                            android:layout_height="70dp"
-                            android:gravity="center"
-                            android:text=""
+                            android:text="00:00:0000"
                             android:textSize="30sp"
+                            android:textStyle="bold"
                             app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView17"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintBottom_toTopOf="@+id/textView15"
+                            app:layout_constraintEnd_toStartOf="@+id/text_view_time"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textView15"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardView3"
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <com.caverock.androidsvg.SVGImageView
-                            android:id="@+id/imageView1"
+                        <TextView
+                            android:id="@+id/textView15"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginLeft="5dp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView18"
-                            app:layout_constraintEnd_toStartOf="@+id/text_view_rN"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:svg="@raw/rn_indicator" />
-
-                        <TextView
-                            android:id="@+id/textView18"
-                            android:layout_width="115dp"
-                            android:layout_height="25dp"
                             android:gravity="center"
-                            android:text="Показатель рН"
-                            app:fontFamily="@font/open_sans"
-                            android:textSize="12sp"
+                            android:text="Время объекта"
+                            android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/text_view_time"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_rN" />
-
-                        <TextView
-                            android:id="@+id/text_view_rN"
-                            android:layout_width="75dp"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView18"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView1"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardView1"
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_SOZ"
-                            android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView25"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView25"
-                            android:layout_width="115dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Температура СОЖ"
-                            android:textSize="12sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_SOZ" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Параметры"
-                android:textStyle="bold"
-                app:fontFamily="@font/open_sans" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_height="75dp">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <com.caverock.androidsvg.SVGImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            app:svg="@raw/density"
-                            app:layout_constraintBottom_toTopOf="@+id/textView19"
-                            app:layout_constraintEnd_toStartOf="@+id/text_view_density"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="115dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Концентрация эмульсии"
-                            android:textSize="9sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_density"
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_date"
                             app:fontFamily="@font/open_sans"/>
 
                         <TextView
-                            android:id="@+id/text_view_density"
-                            android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:id="@+id/text_view_time"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginRight="1dp"
                             android:gravity="center"
-                            android:text=""
-                            android:textSize="24sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView19"
+                            android:text="00:00:00"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/textView15"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView15"
+                            app:layout_constraintTop_toTopOf="@+id/textView15"
                             app:fontFamily="@font/open_sans"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <com.caverock.androidsvg.SVGImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="5dp"
+                                app:svg="@raw/temperature"
+                                app:layout_constraintBottom_toTopOf="@+id/textView17"
+                                app:layout_constraintEnd_toStartOf="@+id/text_view_temperature"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <TextView
+                                android:id="@+id/textView17"
+                                android:layout_width="115dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Температура СОЖ (pH-метр)"
+                                android:paddingBottom="4dp"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_temperature" />
+
+
+                            <TextView
+                                android:id="@+id/text_view_temperature"
+                                android:layout_width="75dp"
+                                android:layout_height="80dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView17"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardView3"
+                        android:layout_width="116dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <com.caverock.androidsvg.SVGImageView
+                                android:id="@+id/imageView1"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="5dp"
+                                app:svg="@raw/rn_indicator"
+                                app:layout_constraintBottom_toTopOf="@+id/textView18"
+                                app:layout_constraintEnd_toStartOf="@+id/text_view_rN"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="115dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:text="Показатель рН"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_rN"
+                                app:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/text_view_rN"
+                                android:layout_width="75dp"
+                                android:layout_height="80dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView18"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardView1"
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <TextView
+                                android:id="@+id/text_view_SOZ"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView25"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/textView25"
+                                android:layout_width="115dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:paddingBottom="4dp"
+                                android:text="Температура СОЖ (рефрактометр)"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_SOZ"
+                                app:fontFamily="@font/open_sans"/>
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <com.caverock.androidsvg.SVGImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="5dp"
+                                app:svg="@raw/density"
+                                app:layout_constraintBottom_toTopOf="@+id/textView19"
+                                app:layout_constraintEnd_toStartOf="@+id/text_view_density"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView19"
+                                android:layout_width="115dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Концентрация эмульсии"
+                                android:textSize="12sp"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_density"
+                                app:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/text_view_density"
+                                android:layout_width="75dp"
+                                android:layout_height="80dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="24sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView19"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="116dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <com.caverock.androidsvg.SVGImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="5dp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView20"
+                                app:layout_constraintEnd_toStartOf="@+id/text_view_level"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:svg="@raw/level" />
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Уровень СОЖ"
+                                android:textSize="12sp"
+                                android:paddingBottom="4dp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_level" />
+
+                            <TextView
+                                android:id="@+id/text_view_level"
+                                android:layout_width="75dp"
+                                android:layout_height="80dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="24sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView20"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Насос"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/roboto" />
+
                 <android.support.v7.widget.CardView
                     android:layout_width="116dp"
-                    android:layout_height="match_parent">
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint6"
+                        android:id="@+id/constraint7"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/frame">
 
                         <com.caverock.androidsvg.SVGImageView
-                            android:id="@+id/imageView3"
+                            android:id="@+id/imageView8"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
-                            app:svg="@raw/level"
-                            app:layout_constraintBottom_toTopOf="@+id/textView20"
-                            app:layout_constraintEnd_toStartOf="@+id/text_view_level"
+                            app:svg="@raw/pump_on"
+                            app:layout_constraintBottom_toTopOf="@+id/textView22"
+                            app:layout_constraintEnd_toStartOf="@+id/text_view_pump_work"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
+                            android:id="@+id/textView22"
+                            android:layout_width="115dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Уровень СОЖ"
+                            android:text="Насос работает (reg)"
+                            android:textSize="12sp"
+                            android:paddingBottom="4dp"
+                            app:fontFamily="@font/open_sans"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_level"
-                            app:fontFamily="@font/open_sans"/>
+                            app:layout_constraintTop_toBottomOf="@+id/text_view_pump_work" />
 
                         <TextView
-                            android:id="@+id/text_view_level"
+                            android:id="@+id/text_view_pump_work"
                             android:layout_width="75dp"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="24sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView20"
+                            android:textSize="30sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintStart_toEndOf="@+id/imageView8"
                             app:layout_constraintTop_toTopOf="parent"
                             app:fontFamily="@font/open_sans"/>
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
-            </LinearLayout>
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Насос"
-                android:textStyle="bold"
-                app:fontFamily="@font/open_sans" />
-            <android.support.v7.widget.CardView
-                android:layout_width="116dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_height="match_parent">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraint7"
+                <TextView
+                    android:id="@+id/textView9"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/frame">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Параметры"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/open_sans"/>
 
-                    <com.caverock.androidsvg.SVGImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="5dp"
-                        app:svg="@raw/pump_on"
-                        app:layout_constraintBottom_toTopOf="@+id/textView22"
-                        app:layout_constraintEnd_toStartOf="@+id/text_view_pump_work"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="7dp">
 
-                    <TextView
-                        android:id="@+id/textView22"
+                    <android.support.v7.widget.CardView
                         android:layout_width="115dp"
-                        android:layout_height="25dp"
-                        android:gravity="center"
-                        android:text="Насос работает (reg)"
-                        android:textSize="10sp"
-                        app:fontFamily="@font/open_sans"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_view_pump_work" />
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/text_view_pump_work"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:gravity="center"
-                        android:text=""
-                        android:textSize="30sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView8"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:fontFamily="@font/open_sans"/>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Параметры"
-                android:textStyle="bold"
-                app:fontFamily="@font/open_sans"/>
+                            <TextView
+                                android:id="@+id/text_view_work_time"
+                                android:layout_width="0dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="24sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView28"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="7dp">
+                            <TextView
+                                android:id="@+id/textView28"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Время работы"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/open_sans"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_work_time" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="116dp"
+                        android:layout_height="match_parent">
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint8"
-                        android:layout_width="match_parent"
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint9"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <TextView
+                                android:id="@+id/text_view_notWork_time"
+                                android:layout_width="0dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="18sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView31"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView31"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:text="Время простоя"
+                                android:paddingBottom="4dp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint10"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <TextView
+                                android:id="@+id/text_view_difference"
+                                android:layout_width="0dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="24sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toTopOf="@+id/textView32"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView32"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Разница"
+                                android:paddingBottom="4dp"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/open_sans"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_difference" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Время включения"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/open_sans"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <TextView
+                                android:id="@+id/text_view_on_timeH"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView39"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/textView39"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Время включения(часы)"
+                                android:textSize="12sp"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeH"
+                                app:fontFamily="@font/open_sans"/>
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="116dp"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint14"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
+
+                            <TextView
+                                android:id="@+id/text_view_on_timeM"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView37"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/textView37"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Время включения(мин)"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeM"
+                                app:fontFamily="@font/open_sans"/>
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Время выключения"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/open_sans"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="115dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/frame">
 
-                        <TextView
-                            android:id="@+id/text_view_work_time"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="24sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView28"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint15"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
 
-                        <TextView
-                            android:id="@+id/textView28"
-                            android:layout_width="0dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Время работы"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_work_time" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
+                            <TextView
+                                android:id="@+id/text_view_off_timeH"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView42"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:fontFamily="@font/open_sans"/>
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textView42"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Время выключения(часы)"
+                                android:textSize="12sp"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeH"
+                                app:fontFamily="@font/open_sans"/>
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint9"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="116dp"
+                        android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/text_view_notWork_time"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="18sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView31"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraint16"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame">
 
-                        <TextView
-                            android:id="@+id/textView31"
-                            android:layout_width="0dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Время простоя"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_notWork_time" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
+                            <TextView
+                                android:id="@+id/text_view_off_timeM"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView43"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:fontFamily="@font/open_sans"/>
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint10"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_difference"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="24sp"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toTopOf="@+id/textView32"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView32"
-                            android:layout_width="0dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Разница"
-                            app:fontFamily="@font/open_sans"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_difference" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
+                            <TextView
+                                android:id="@+id/textView43"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Время выключения(мин)"
+                                android:textSize="12sp"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeM"
+                                app:fontFamily="@font/open_sans"/>
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Время включения"
-                android:textStyle="bold"
-                app:fontFamily="@font/open_sans"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_height="75dp">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint13"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_on_timeH"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView39"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/open_sans"/>
-
-                        <TextView
-                            android:id="@+id/textView39"
-                            android:layout_width="0dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Время включения(часы)"
-                            android:textSize="9sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeH"
-                            app:fontFamily="@font/open_sans"/>
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint14"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_on_timeM"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView37"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/open_sans"/>
-
-                        <TextView
-                            android:id="@+id/textView37"
-                            android:layout_width="0dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:text="Время включения(мин)"
-                            android:textSize="10sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_on_timeM"
-                            app:fontFamily="@font/open_sans"/>
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Время выключения"
-                android:textStyle="bold"
-                app:fontFamily="@font/open_sans"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="25dp"
-                android:layout_height="75dp">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/frame">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint15"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_off_timeH"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView42"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/open_sans"/>
-
-                        <TextView
-                            android:id="@+id/textView42"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:gravity="center"
-                            android:text="Время выключения(часы)"
-                            android:textSize="10sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeH"
-                            app:fontFamily="@font/open_sans"/>
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="116dp"
-                    android:layout_height="match_parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraint16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/frame">
-
-                        <TextView
-                            android:id="@+id/text_view_off_timeM"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView43"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:fontFamily="@font/open_sans"/>
-
-                        <TextView
-                            android:id="@+id/textView43"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:gravity="center"
-                            android:text="Время выключения(мин)"
-                            android:textSize="10sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_view_off_timeM"
-                            app:fontFamily="@font/open_sans"/>
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

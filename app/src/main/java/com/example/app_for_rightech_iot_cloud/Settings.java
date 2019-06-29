@@ -63,12 +63,13 @@ public class Settings extends Fragment {
         final Switch changeTheme = rootView.findViewById(R.id.switch1);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         final SharedPreferences.Editor editor = preferences.edit();
-
+        TextView aboutUs = rootView.findViewById(R.id.know);
+        TextView question = rootView.findViewById(R.id.question);
         final Switch notifications = rootView.findViewById(R.id.switch2);
         names = new ArrayList<>();
         ids = new ArrayList<>();
         final TextView factory = rootView.findViewById(R.id.factory);
-        if (preferences.getString("Notifications", "").equals("TRUE")){
+        if (preferences.getString("Notifications", "TRUE").equals("TRUE")){
             notifications.setChecked(true);
         }
         else {
@@ -88,6 +89,7 @@ public class Settings extends Fragment {
             rootView.findViewById(R.id.settingsLayout).setBackgroundColor(Color.parseColor("#18191D"));
             rootView.findViewById(R.id.layout1).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             rootView.findViewById(R.id.layout2).setBackgroundResource(R.drawable.dark_recycler_view_frame);
+            rootView.findViewById(R.id.layout5).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             rootView.findViewById(R.id.layout3).setBackgroundResource(R.drawable.dark_recycler_view_frame);
             TextView text = rootView.findViewById(R.id.textView);
             text.setTextColor(Color.parseColor("#E9E9E9"));
@@ -117,6 +119,7 @@ public class Settings extends Fragment {
             rightButton.setImageResource(notification);
             rootView.findViewById(R.id.settingsLayout).setBackgroundColor(Color.parseColor("#ffffff"));
             rootView.findViewById(R.id.layout1).setBackgroundResource(R.drawable.recycler_view_frame);
+            rootView.findViewById(R.id.layout5).setBackgroundResource(R.drawable.recycler_view_frame);
             rootView.findViewById(R.id.layout2).setBackgroundResource(R.drawable.recycler_view_frame);
             rootView.findViewById(R.id.layout3).setBackgroundResource(R.drawable.recycler_view_frame);
             TextView text = rootView.findViewById(R.id.textView);
@@ -136,6 +139,31 @@ public class Settings extends Fragment {
             changeTheme.setChecked(false);
         }
         setNamesAndId();
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.title);
+                title.setText("О нас");
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = new AboutUs();
+                assert fragmentManager != null;
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            }
+        });
+
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.title);
+                title.setText("Вопрос");
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = new Question();
+                assert fragmentManager != null;
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            }
+        });
+
         factory.setText(preferences.getString("Factory","Не выбрано"));
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +178,16 @@ public class Settings extends Fragment {
 
             }
         });
+
+        TextView exit = rootView.findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

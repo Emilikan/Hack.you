@@ -34,14 +34,14 @@
                         app:srcCompat="@drawable/notification" />
 
                     <TextView
+                        app:fontFamily="@font/open_sans"
                         android:id="@+id/title"
                         android:layout_width="260dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text=""
                         android:textColor="#000000"
-                        android:textSize="24sp"
-                        app:fontFamily="@font/roboto" />
+                        android:textSize="24sp" />
 
                     <ImageView
                         android:id="@+id/settings"

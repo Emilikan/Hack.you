@@ -79,10 +79,12 @@ public class MainFragment extends Fragment {
         if (preferences.getString("theme", "light").equals("dark")){
             rootView.findViewById(R.id.tabs).setBackgroundColor(Color.parseColor("#18191D"));
             tabLayout.setTabTextColors(Color.parseColor("#E9E9E9"),Color.parseColor("#E9E9E9"));
+            rootView.findViewById(R.id.fragmentLayout).setBackgroundColor(Color.parseColor("#18191D"));
         }
         else{
             tabLayout.setTabTextColors(Color.parseColor("#000000"),Color.parseColor("#000000"));
             rootView.findViewById(R.id.tabs).setBackgroundColor(Color.parseColor("#ffffff"));
+            rootView.findViewById(R.id.fragmentLayout).setBackgroundColor(Color.parseColor("#ffffff"));
         }
         viewPager = rootView.findViewById(R.id.viewpager);
 

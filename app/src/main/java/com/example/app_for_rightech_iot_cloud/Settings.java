@@ -183,6 +183,10 @@ public class Settings extends Fragment {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editor.putString("login", null);
+                editor.putString("password", null);
+                editor.apply();
+
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }

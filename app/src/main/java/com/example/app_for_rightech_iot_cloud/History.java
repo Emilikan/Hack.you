@@ -203,21 +203,8 @@ public class History extends Fragment {
             }
         });
 
-        if (getContext() != null && !isOnline(getContext())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Warning")
-                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
-                    .setCancelable(false)
-                    .setNegativeButton("Ок, закрыть",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else if (getContext()!=null) {
-            newStateWhenNewDate(thisDate, thisTime);
+        if(getContext()!=null) {
+            newStateWhenNewDate(1, thisDate, thisTime);
         }
 
 
@@ -250,7 +237,7 @@ public class History extends Fragment {
             allTimeForTime = new ArrayList<>();
 
             lastDay.setText(setInitialDateTime());
-            newStateWhenNewDate(thisDate, thisTime);
+            newStateWhenNewDate(2, thisDate, thisTime);
         }
     };
 
@@ -385,12 +372,13 @@ public class History extends Fragment {
     }
 
     // записываем все милисекунды за день в массив и продолжаем
-    private void getAllMs(final String thisDate, String thisTime) {
+    private void getAllMs(int a, final String thisDate, String thisTime) {
         final long thisMs = getMillisecond(thisDate + " " + thisTime);
         final long startMS = getMillisecond(thisDate + " " + "00:00:00");
         long endMs = getMillisecond(thisDate +  " " + "23:59:59");
 
         if (getContext()!= null && !isOnline(getContext())) {
+            if(a != 1) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Warning")
                         .setMessage("Нет доступа в интернет. Проверьте наличие связи")
@@ -403,6 +391,7 @@ public class History extends Fragment {
                                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+            }
         } else if (getContext()!=null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -475,23 +464,28 @@ public class History extends Fragment {
     }
 
     // метод обновления информации на основе новой даты
-    private void newStateWhenNewDate(String thisDate, String thisTime) {
-        if (getContext() != null && !isOnline(getContext())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Warning")
-                    .setMessage("Нет доступа в интернет. Проверьте наличие связи")
-                    .setCancelable(false)
-                    .setNegativeButton("Ок, закрыть",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else if (getContext()!=null) {
-            getAllMs(thisDate, thisTime);
+    private void newStateWhenNewDate(int a, String thisDate, String thisTime) {
+        if(a != 1) {
+            if (getContext() != null && !isOnline(getContext())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Warning")
+                        .setMessage("Нет доступа в интернет. Проверьте наличие связи")
+                        .setCancelable(false)
+                        .setNegativeButton("Ок, закрыть",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else if (getContext() != null) {
+                getAllMs(2, thisDate, thisTime);
+            }
+        } else {
+            getAllMs(1, thisDate, thisTime);
         }
+
     }
 
     // чтобы каждый раз при смене времени не обращаться к серверу
@@ -501,7 +495,7 @@ public class History extends Fragment {
             getNewState(thisDate, thisMs, allTimeForTime, allStateForTime);
         } else {
             // если вдруг что-то пошло не так
-            newStateWhenNewDate(thisDate, thisTime);
+            newStateWhenNewDate(2, thisDate, thisTime);
         }
     }
 

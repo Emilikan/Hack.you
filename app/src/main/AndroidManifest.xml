@@ -37,7 +37,8 @@
 
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Enter">
+        <activity android:name=".Enter"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"

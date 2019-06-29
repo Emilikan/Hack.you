@@ -156,16 +156,29 @@ public class MainActivity extends AppCompatActivity {
                         rightButton.setImageResource(settings);
 
                         title.setText(nameOfTitle);
-                    }
-                else{
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    Fragment fragment = new Notifications();
-                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    leftButton.setImageResource(leftArrow);
-                    rightButton.setImageResource(settings);
+                    } else {
+                        if (title.getText() == "Вопрос") {
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            Fragment fragment = new Settings();
+                            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                            title.setText("Настройки");
+                        } else {
+                            if (title.getText() == "О нас") {
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                Fragment fragment = new Settings();
+                                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                                title.setText("Настройки");
+                            } else {
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                Fragment fragment = new Notifications();
+                                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                                leftButton.setImageResource(leftArrow);
+                                rightButton.setImageResource(settings);
 
-                    title.setText("Уведомления");
-                }
+                                title.setText("Уведомления");
+                            }
+                        }
+                    }
                 }
             }
         });

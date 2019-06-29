@@ -63,7 +63,8 @@ public class Settings extends Fragment {
         final Switch changeTheme = rootView.findViewById(R.id.switch1);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         final SharedPreferences.Editor editor = preferences.edit();
-
+        TextView aboutUs = rootView.findViewById(R.id.know);
+        TextView question = rootView.findViewById(R.id.question);
         final Switch notifications = rootView.findViewById(R.id.switch2);
         names = new ArrayList<>();
         ids = new ArrayList<>();
@@ -138,6 +139,31 @@ public class Settings extends Fragment {
             changeTheme.setChecked(false);
         }
         setNamesAndId();
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.title);
+                title.setText("О нас");
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = new AboutUs();
+                assert fragmentManager != null;
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            }
+        });
+
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.title);
+                title.setText("Вопрос");
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = new Question();
+                assert fragmentManager != null;
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            }
+        });
+
         factory.setText(preferences.getString("Factory","Не выбрано"));
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +178,7 @@ public class Settings extends Fragment {
 
             }
         });
+
         TextView exit = rootView.findViewById(R.id.exit);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +187,7 @@ public class Settings extends Fragment {
                 startActivity(intent);
             }
         });
+
         changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
